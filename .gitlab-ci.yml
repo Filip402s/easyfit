@@ -17,7 +17,7 @@ stages:
 deploy-prod:
   stage: deploy
   script:
-    - docker pull debian
+    - echo "Hello easyfit"
     # - docker stack deploy -c docker-compose.yml # --with-registry-auth my-stack
   only:
     - master
