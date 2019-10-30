@@ -4,19 +4,20 @@ image: tiangolo/docker-with-compose
   # - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
 
 stages:
-  - build
+  # - build
   - deploy
 
-build-prod:
-  stage: build
-  script:
-    - docker-compose build
-  only:
-    - master
+# build-prod:
+  # stage: build
+  # script:
+    # - docker-compose build
+  # only:
+    # - master
 
 deploy-prod:
   stage: deploy
   script:
-    - docker stack deploy -c docker-compose.yml # --with-registry-auth my-stack
+    - docker pull debian
+    # - docker stack deploy -c docker-compose.yml # --with-registry-auth my-stack
   only:
     - master
