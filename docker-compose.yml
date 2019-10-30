@@ -1,0 +1,14 @@
+version: '3.7'
+
+services:
+  frontend:
+    build:
+      context: frontend 
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80" 
+    networks:
+      - frontend  
+
+networks:
+  frontend:    
