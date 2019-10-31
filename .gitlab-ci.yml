@@ -19,8 +19,7 @@ build-prod:
 deploy-prod:
   stage: deploy
   script:
-    - ls -al
-    - docker stack deploy -c docker-compose.yml --with-registry-auth my-stack
-    # - docker stack deploy -c docker-compose.yml easyFitStack
+    # - docker stack deploy -c docker-compose.yml --with-registry-auth my-stack
+    - docker stack deploy -c docker-compose.yml easyFitStack
   only:
     - master
