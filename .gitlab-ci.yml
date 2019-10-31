@@ -11,7 +11,8 @@ stages:
 build-prod:
   stage: build
   script:
-    - docker-compose build
+    - docker run hello-world
+    # - docker-compose build
   only:
     - master
 
@@ -20,6 +21,6 @@ deploy-prod:
   script:
     - ls -al
     # - docker stack deploy -c docker-compose.yml --with-registry-auth my-stack
-    # - docker stack deploy -c docker-compose.yml easyFitStack
+    - docker stack deploy -c docker-compose.yml easyFitStack
   only:
     - master
