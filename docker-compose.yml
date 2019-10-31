@@ -19,7 +19,7 @@ services:
 #   Setup react js container
 ################################
   web:
-    build: ./server
+    build: ./frontend
     expose:
       - 3000
     ports:
