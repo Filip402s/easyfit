@@ -6,14 +6,23 @@ image: docker:stable
   # - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
 
 stages:
+  - pre-check
   - build
   - deploy
+
+precheck-prod:
+  stage: pre-check
+  script:
+    - docker run hello-world
+    - docker-compose build
+  only:
+    - master
 
 build-prod:
   stage: build
   script:
     - docker run hello-world
-    # - docker-compose build
+    - docker-compose build
   only:
     - master
 
@@ -21,6 +30,7 @@ deploy-prod:
   stage: deploy
   script:
     # - docker stack deploy -c docker-compose.yml --with-registry-auth my-stack
-    - docker stack deploy -c docker-compose.yml easyFitStack
+    # - docker stack deploy -c docker-compose.yml easyFitStack
+    - npm start --prefix ./frontend
   only:
     - master
