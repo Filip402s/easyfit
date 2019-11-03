@@ -15,7 +15,7 @@ precheck-prod:
   stage: pre-check
   script:
     - docker --version
-    - docker run hello-world
+    # - docker run hello-world
     - docker ps -a
     - docker-compose --version
   only:
