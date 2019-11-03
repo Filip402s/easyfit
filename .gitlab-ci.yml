@@ -33,6 +33,7 @@ cleanup-prod:
   stage: cleanup
   script:
     - docker stack rm easyFitStack
+    - docker stack rm vote
   only:
     - master
 
