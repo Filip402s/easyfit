@@ -20,7 +20,7 @@ services:
 ################################
   web:
     build: ./frontend
-      dockerfile: ./frontend/Dockerfile
+      # dockerfile: ./frontend/Dockerfile
     # expose:
       # - 3000
     ports:
