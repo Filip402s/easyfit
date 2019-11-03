@@ -20,7 +20,7 @@ COPY package.json /app
 
 #Installing all dependencies.
 RUN npm init
-RUN npm install debug
+RUN npm install
 
 # Running the dev server.
 CMD ["npm", "start"]
