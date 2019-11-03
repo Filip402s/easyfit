@@ -1,6 +1,23 @@
 version: "3"
 services:
 
+  web:
+    image: easyfit_web
+    # build:
+      # context: ./frontend
+      # dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend:/app
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+
   redis:
     image: redis:alpine
     deploy:
