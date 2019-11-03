@@ -17,6 +17,7 @@ version: '3'
 services:
   web:
     build:
+      image: hello-world
       context: ./frontend
       dockerfile: Dockerfile
     # expose:
