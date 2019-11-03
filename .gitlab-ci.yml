@@ -7,7 +7,7 @@ image: tiangolo/docker-with-compose
 
 stages:
   - pre-check
-  - build
+  # - build
   - cleanup
   - deploy
 
@@ -21,12 +21,12 @@ precheck-prod:
   only:
     - master
 
-build-prod:
-  stage: build
-  script:
-    - docker-compose build
-  only:
-    - master
+# build-prod:
+  # stage: build
+  # script:
+    # - docker-compose build
+  # only:
+    # - master
 
 
 cleanup-prod:
