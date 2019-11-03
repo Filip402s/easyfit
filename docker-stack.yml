@@ -7,8 +7,6 @@ services:
       - 5001:80
     networks:
       - backend
-    depends_on:
-      - db
     deploy:
       replicas: 1
       update_config:
@@ -18,7 +16,7 @@ services:
         condition: on-failure
 
   web:
-    image: easyfit_webzupa
+    image: easyfit_web
     build:
       context: ./frontend
       dockerfile: Dockerfile
@@ -35,15 +33,6 @@ services:
         delay: 10s
       restart_policy:
         condition: on-failure
-  db:
-    image: postgres:9.4
-    volumes:
-      - db-data:/var/lib/postgresql/data
-    networks:
-      - backend
-    deploy:
-      placement:
-        constraints: [node.role == manager]
 
 networks:
   frontend:
