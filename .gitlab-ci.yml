@@ -31,8 +31,8 @@ deploy-prod:
   stage: deploy
   script:
     # - docker stack deploy -c docker-compose.yml --with-registry-auth my-stack
-    # - docker stack deploy -c docker-compose.yml easyFitStack
-    - docker-compose up
+    - docker stack deploy -c docker-compose.yml easyFitStack
+    # - docker-compose up
     # - npm start --prefix ./frontend
   only:
     - master
