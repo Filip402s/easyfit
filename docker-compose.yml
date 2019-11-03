@@ -16,7 +16,7 @@
 version: '3'
 services:
   web:
-    image: hello-world
+    image: easyfit_web
     build:
       context: ./frontend
       dockerfile: Dockerfile
