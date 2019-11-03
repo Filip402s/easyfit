@@ -8,6 +8,7 @@ image: tiangolo/docker-with-compose
 stages:
   - pre-check
   - build
+  - cleanup
   - deploy
 
 precheck-prod:
@@ -24,6 +25,14 @@ build-prod:
   stage: build
   script:
     - docker-compose build
+  only:
+    - master
+
+
+cleanup-prod:
+  stage: cleanup
+  script:
+    - docker stack rm easyFitStack
   only:
     - master
 
