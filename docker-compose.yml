@@ -19,8 +19,7 @@ services:
 #   Setup react js container
 ################################
   web:
-    # build: ./frontend
-    build:
+    build: ./frontend
       dockerfile: ./frontend/Dockerfile
     # expose:
       # - 3000
