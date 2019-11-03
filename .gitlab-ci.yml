@@ -14,14 +14,12 @@ precheck-prod:
   stage: pre-check
   script:
     - docker run hello-world
-    - docker-compose build
   only:
     - master
 
 build-prod:
   stage: build
   script:
-    - docker run hello-world
     - docker-compose build
   only:
     - master
