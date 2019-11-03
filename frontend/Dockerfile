@@ -19,7 +19,7 @@ WORKDIR /app
 COPY package.json /app
 
 #Installing all dependencies.
-RUN npm init
+# RUN npm init frontend 
 RUN npm install
 
 # Running the dev server.

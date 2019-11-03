@@ -18,7 +18,7 @@ services:
         condition: on-failure
 
   web:
-    image: easyfit_web
+    image: easyfit_webzupa
     build:
       context: ./frontend
       dockerfile: Dockerfile
