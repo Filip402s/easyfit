@@ -19,9 +19,9 @@ services:
 
   web:
     image: easyfit_web
-    # build:
-      # context: ./frontend
-      # dockerfile: Dockerfile
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
     ports:
       - 3000:3000
     networks:
