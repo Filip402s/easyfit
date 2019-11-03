@@ -13,8 +13,10 @@ stages:
 precheck-prod:
   stage: pre-check
   script:
+    - docker --version
     - docker run hello-world
     - docker ps -a
+    - docker-compose --version
   only:
     - master
 
@@ -30,6 +32,7 @@ deploy-prod:
   script:
     # - docker stack deploy -c docker-compose.yml --with-registry-auth my-stack
     # - docker stack deploy -c docker-compose.yml easyFitStack
-    - npm start --prefix ./frontend
+    - docker-compose up
+    # - npm start --prefix ./frontend
   only:
     - master
