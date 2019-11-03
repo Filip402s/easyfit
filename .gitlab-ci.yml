@@ -1,5 +1,5 @@
-image: docker:stable
-# image: tiangolo/docker-with-compose
+# image: docker:stable
+image: tiangolo/docker-with-compose
 # image: docker
 
 # before_script:
