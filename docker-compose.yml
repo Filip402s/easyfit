@@ -19,8 +19,9 @@ services:
 #   Setup react js container
 ################################
   web:
-    build: ./frontend
-      dockerfile: Dockerfile
+    # build: ./frontend
+    build:
+      dockerfile: ./frontend/Dockerfile
     # expose:
       # - 3000
     ports:
