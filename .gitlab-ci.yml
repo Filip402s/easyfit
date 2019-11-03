@@ -42,7 +42,8 @@ deploy-prod:
   script:
     # - docker stack deploy -c docker-compose.yml --with-registry-auth my-stack
     # - docker stack deploy -c docker-compose.yml easyFitStack
-    - docker stack deploy -c docker-stack.yml easyFitStack
+    # - docker stack deploy -c docker-stack.yml easyFitStack
+    - docker-compose --file docker-stack.yml up --force-recreate
     # - docker-compose up
     # - npm start --prefix ./frontend
   only:
