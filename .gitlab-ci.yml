@@ -24,7 +24,7 @@ precheck-prod:
   script:
     - docker --version
     - docker ps -a
-    # - docker-compose --version
+    - docker-compose --version
     - ls -al
   only:
     - master
@@ -35,7 +35,7 @@ cleanup-prod:
     # - docker rmi $(docker images)
     - docker rmi easyfit_web:latest --force
     - docker stack rm easyFitStack
-    # - docker-compose stop
+    - docker-compose stop
   only:
     - master
 
@@ -64,11 +64,7 @@ deploy-prod:
     - pwd
     - ls -al
     - ls *
-    # - docker build ./react-docker -t react-docker
-    # - docker run -p 8000:3000 react-docker
-    # - npm install --prefix ./frontend
-    # - echo y | docker stack deploy -c docker-stack.yml easyFitStack
-    # - echo y | docker-compose --file docker-stack.yml up --force-recreate
-    - echo y | docker-compose --file docker-compose.yml up --force-recreate -d
+    - echo y | docker stack deploy -c docker-stack.yml easyFitStack
+    # - echo y | docker-compose --file docker-compose.yml up --force-recreate -d
   only:
     - master
