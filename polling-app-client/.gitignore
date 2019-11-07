@@ -1,9 +1,7 @@
+# See https://help.github.com/ignore-files/ for more about ignoring files.
+
 # dependencies
-/frontend/node_modules
-/react-docker/node_modules
 /node_modules
-/.pnp
-.pnp.js
 
 # testing
 /coverage

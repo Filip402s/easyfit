@@ -1,50 +1,74 @@
 # image: docker:stable
 image: tiangolo/docker-with-compose
+# image: docker:19.03.1
 # image: docker
 
-# before_script:
-  # - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+services:
+  - docker:19.03.1-dind
+  - node
+
+before_script:
+  # - curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+  # - apt install nodejs
+  # - sudo apt install nodejs
 
 stages:
   - pre-check
-  # - build
   - cleanup
+  # - preinstall
+  # - build
   - deploy
 
 precheck-prod:
   stage: pre-check
   script:
     - docker --version
-    # - docker run hello-world
     - docker ps -a
-    - docker-compose --version
+    # - docker-compose --version
+    - ls -al
   only:
     - master
-
-# build-prod:
-  # stage: build
-  # script:
-    # - docker-compose build
-  # only:
-    # - master
-
 
 cleanup-prod:
   stage: cleanup
   script:
+    # - docker rmi $(docker images)
+    - docker rmi easyfit_web:latest --force
     - docker stack rm easyFitStack
-    - docker-compose stop
+    # - docker-compose stop
   only:
     - master
 
+# preinstall-prod:
+#   stage: preinstall
+#   script:
+#     - pip install npm
+#   only:
+#     - master
+
+# build-prod:
+#   image: node
+#   stage: build
+#   script:
+#     - pwd
+#     - ls -al
+#     # - npm install --prefix ./frontend
+#     # - docker build ./react-docker -t react-docker
+#   only:
+#     - master
+
 deploy-prod:
-  stage: deploy
+  # image: node
+  stage: deploy # todo rename to build and deploy
   script:
-    # - docker stack deploy -c docker-compose.yml --with-registry-auth my-stack
-    # - docker stack deploy -c docker-compose.yml easyFitStack
-    # - docker stack deploy -c docker-stack.yml easyFitStack
-    - docker-compose --file docker-stack.yml up --force-recreate
-    # - docker-compose up
-    # - npm start --prefix ./frontend
+    - pwd
+    - ls -al
+    - ls *
+    # - docker build ./react-docker -t react-docker
+    # - docker run -p 8000:3000 react-docker
+    # - npm install --prefix ./frontend
+    # - echo y | docker stack deploy -c docker-stack.yml easyFitStack
+    # - echo y | docker-compose --file docker-stack.yml up --force-recreate
+    - echo y | docker-compose --file docker-compose.yml up --force-recreate -d
   only:
     - master
