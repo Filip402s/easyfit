@@ -1,8 +1,5 @@
 image: tiangolo/docker-with-compose
 
-# services:
-  # - docker:19.03.1-dind
-
 stages:
   - precheck
   - cleanup
@@ -12,19 +9,19 @@ stages:
 precheck-prod:
   stage: precheck
   script:
+    - ls -al
     - docker --version
     - docker ps -a
     - docker-compose --version
-    - ls -al
   only:
     - master
 
 cleanup-prod:
   stage: cleanup
   script:
+    - docker stack rm easyFitStack
     - docker rmi easyfit_app-client --force
     - docker rmi easyfit_app-server --force
-    - docker stack rm easyFitStack
   only:
     - master
 
