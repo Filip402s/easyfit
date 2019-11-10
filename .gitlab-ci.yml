@@ -1,11 +1,7 @@
-# image: docker:stable
 image: tiangolo/docker-with-compose
-# image: docker:19.03.1
-# image: docker
 
 services:
   - docker:19.03.1-dind
-  # - node
 
 before_script:
   # - curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
@@ -32,20 +28,13 @@ precheck-prod:
 cleanup-prod:
   stage: cleanup
   script:
-    # - docker rmi $(docker images)
-    - docker rmi easyfit_app-client:latest --force
+    - docker rmi easyfit_app-client --force
     - docker rmi easyfit_app-server --force
     - docker stack rm easyFitStack
     - docker-compose stop
   only:
     - master
 
-# preinstall-prod:
-#   stage: preinstall
-#   script:
-#     - pip install npm
-#   only:
-#     - master
 
 # build-prod:
 #   image: node
@@ -59,7 +48,6 @@ cleanup-prod:
 #     - master
 
 deploy-prod:
-  # image: node
   stage: deploy # todo rename to build and deploy
   script:
     - pwd
