@@ -39,12 +39,12 @@ class LoginForm extends Component {
                 }).catch(error => {
                     if(error.status === 401) {
                         notification.error({
-                            message: 'Polling App',
+                            message: 'easyFit app',
                             description: 'Your Username or Password is incorrect. Please try again!'
                         });                    
                     } else {
                         notification.error({
-                            message: 'Polling App',
+                            message: 'easyFit app',
                             description: error.message || 'Sorry! Something went wrong. Please try again!'
                         });                                            
                     }
