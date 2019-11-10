@@ -30,7 +30,7 @@ cleanup-prod:
     - docker rmi easyfit_app-client --force
     - docker rmi easyfit_app-server --force
     - docker stack rm easyFitStack
-    - docker-compose stop
+    - docker-compose stop # todo check if isn't failing after removing docker-compose.yml or maybe we can add docker-stack.yml as file
   only:
     - master
 
