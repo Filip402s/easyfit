@@ -26,7 +26,7 @@ services:
       context: ms-client
       dockerfile: Dockerfile
       args:
-        REACT_APP_API_BASE_URL: http://127.0.0.1:8080/api
+        REACT_APP_API_BASE_URL: http://localhost:8080/api
     ports:
       - "9090:80"
     restart: always

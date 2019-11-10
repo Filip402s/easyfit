@@ -33,8 +33,7 @@ services:
       context: ms-client
       dockerfile: Dockerfile
       args:
-        # REACT_APP_API_BASE_URL: http://127.0.0.1:8080/api
-        REACT_APP_API_BASE_URL: http://51.91.101.96:8080/api
+        REACT_APP_API_BASE_URL: http://51.91.101.96:8080/api  # todo externalize config
     ports:
       - "9090:80"
     restart: always
