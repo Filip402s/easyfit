@@ -19,13 +19,6 @@ services:
     networks:
       - backend
       - frontend
-    deploy:
-      replicas: 2
-      update_config:
-        parallelism: 2
-        delay: 10s
-      restart_policy:
-        condition: on-failure
 
   app-client:
     image: easyfit_app-client
@@ -33,22 +26,14 @@ services:
       context: ms-client
       dockerfile: Dockerfile
       args:
-        # REACT_APP_API_BASE_URL: http://127.0.0.1:8080/api
-        REACT_APP_API_BASE_URL: http://51.91.101.96:8080/api
+        REACT_APP_API_BASE_URL: http://127.0.0.1:8080/api
     ports:
       - "9090:80"
     restart: always
     depends_on:
       - app-server
     networks:
-      - frontend  
-    deploy:
-      replicas: 2
-      update_config:
-        parallelism: 2
-        delay: 10s
-      restart_policy:
-        condition: on-failure
+      - frontend
 
   db:
     image: mysql:5.7
@@ -63,14 +48,7 @@ services:
     volumes:
       - db-data:/var/lib/mysql
     networks:
-      - backend  
-    deploy:
-      replicas: 2
-      update_config:
-        parallelism: 2
-        delay: 10s
-      restart_policy:
-        condition: on-failure
+      - backend
   
 volumes:
   db-data:
