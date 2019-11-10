@@ -4,7 +4,7 @@ services:
   app-server:
     image: easyfit_app-server
     build:
-      context: polling-app-server # todo rename directory
+      context: ms-api
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
@@ -30,7 +30,7 @@ services:
   app-client:
     image: easyfit_app-client
     build:
-      context: polling-app-client # todo rename directory
+      context: ms-client
       dockerfile: Dockerfile
       args:
         REACT_APP_API_BASE_URL: http://127.0.0.1:8080/api
