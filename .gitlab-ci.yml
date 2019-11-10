@@ -11,8 +11,7 @@ before_script:
 stages:
   - pre-check
   - cleanup
-  # - preinstall
-  # - build
+  - build
   - deploy
 
 precheck-prod:
@@ -36,16 +35,12 @@ cleanup-prod:
     - master
 
 
-# build-prod:
-#   image: node
-#   stage: build
-#   script:
-#     - pwd
-#     - ls -al
-#     # - npm install --prefix ./frontend
-#     # - docker build ./react-docker -t react-docker
-#   only:
-#     - master
+build-prod:
+  stage: build
+  script:
+    - echo y | docker-compose --file docker-compose.yml build # todo check if docker-stack works and should be used
+  only:
+    - master
 
 deploy-prod:
   stage: deploy # todo rename to build and deploy
@@ -53,7 +48,7 @@ deploy-prod:
     - pwd
     - ls -al
     - ls *
-    - echo y | docker-compose --file docker-compose.yml build
+    # - echo y | docker-compose --file docker-compose.yml build
     - echo y | docker stack deploy -c docker-stack.yml easyFitStack
   only:
     - master
