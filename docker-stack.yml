@@ -1,7 +1,7 @@
 version: '3.7'
 
 services:
-  app-server: # todo rename services to directory names
+  ms-api:
     image: easyfit_ms-api
     build:
       context: ms-api
@@ -53,7 +53,7 @@ services:
       restart_policy:
         condition: on-failure
 
-  app-client:
+  ms-client:
     image: easyfit_ms-client
     build:
       context: ms-client
@@ -64,7 +64,7 @@ services:
       - "9090:80"
     restart: always
     depends_on:
-      - app-server
+      - ms-api
     networks:
       - frontend  
     deploy:
