@@ -20,8 +20,9 @@ cleanup-prod:
   stage: cleanup
   script:
     - docker stack rm easyFitStack
-    - docker rmi easyfit_app-client --force
-    - docker rmi easyfit_app-server --force
+    - docker rmi easyfit_ms-client --force
+    - docker rmi easyfit_ms-api --force
+    - docker rmi easyfit_ms-auth --force
   only:
     - master
 

@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   app-server: # todo rename services to directory names
-    image: easyfit_app-server
+    image: easyfit_ms-api
     build:
       context: ms-api
       dockerfile: Dockerfile
@@ -28,7 +28,7 @@ services:
         condition: on-failure
 
   ms-auth:
-    image: easyfit_app-auth
+    image: easyfit_ms-auth
     build:
       context: ms-auth
       dockerfile: Dockerfile
@@ -54,7 +54,7 @@ services:
         condition: on-failure
 
   app-client:
-    image: easyfit_app-client
+    image: easyfit_ms-client
     build:
       context: ms-client
       dockerfile: Dockerfile

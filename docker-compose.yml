@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   app-server:
-    image: easyfit_app-server
+    image: easyfit_ms-api
     build:
       context: ms-api
       dockerfile: Dockerfile
@@ -21,7 +21,7 @@ services:
       - frontend
 
   ms-auth:
-    image: easyfit_app-auth
+    image: easyfit_ms-auth
     build:
       context: ms-auth
       dockerfile: Dockerfile
@@ -40,7 +40,7 @@ services:
       - frontend
 
   app-client:
-    image: easyfit_app-client
+    image: easyfit_ms-client
     build:
       context: ms-client
       dockerfile: Dockerfile
