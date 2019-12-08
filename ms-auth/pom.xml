@@ -8,10 +8,10 @@
 		<version>2.2.1.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>pl.mazzaq.easyfit</groupId>
-	<artifactId>auth</artifactId>
+	<groupId>pl.mazzaq.easyfit.auth</groupId>
+	<artifactId>ms-auth</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>auth</name>
+	<name>ms-auth</name>
 	<description>Auth for easyFit</description>
 
 	<properties>

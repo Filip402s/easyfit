@@ -38,4 +38,4 @@ ENV JAVA_TOOL_OPTIONS -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,addr
 # ENV JAVA_TOOL_OPTIONS -agentlib:jdwp=transport=dt_socket,address=8000,server=y,suspend=n
 
 
-ENTRYPOINT ["java","-cp","app:app/lib/*","com.example.polls.PollsApplication"]
+ENTRYPOINT ["java","-cp","app:app/lib/*","pl.mazzaq.easyfit.api.PollsApplication"]

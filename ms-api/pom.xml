@@ -3,18 +3,19 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.example</groupId>
-	<artifactId>polls</artifactId>
+	<groupId>pl.mazzaq.easyfit.api</groupId>
+	<artifactId>ms-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>polls</name>
+	<name>ms-api</name>
 	<description>easyFit app built with Spring Boot, Spring Security, MySQL and JWT</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.1.6.RELEASE</version>
+        <version>2.1.6.RELEASE</version>
+<!--        <version>2.2.1.RELEASE</version>-->
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
