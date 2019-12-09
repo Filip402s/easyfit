@@ -1,5 +1,21 @@
 server:
   port: 8082
+# spring:
+  # profiles:
+    # active: native
 spring:
-  profiles:
-    active: native
+  cloud:
+    config:
+      server:
+        git:
+          # uri: https://github.com/krish/spring-cloud-config
+#          uri: git@gitlab.com:easyfit-group/easyfit-config-store.git
+          # uri: https://gitlab.com/easyfit-group/easyfit-config-store.git
+          uri: https://github.com/krish/microservices-course-on-youtube-config-store
+          # hostKey: vps
+          # hostKeyAlgorithm: ssh-rsa
+#          skipSslValidation: true
+          # username: 
+          # passphrase:
+          search-paths:
+           - '*service'
