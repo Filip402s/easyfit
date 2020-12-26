@@ -1,7 +1,0 @@
-server:
-  port: 8081
-security:
-  oauth2:
-    client:
-      client-id: mobile
-      client-secret: pin
