@@ -13,29 +13,30 @@ precheck-prod:
     - docker --version
     - docker ps -a
     - docker-compose --version
-  only:
-    - master
+  # only:
+  #   - master
 
 cleanup-prod:
   stage: cleanup
   script:
     - docker stack rm easyFitStack
-    - docker rmi easyfit_ms-client --force
     - docker rmi easyfit_ms-api --force
     - docker rmi easyfit_ms-auth --force
-  only:
-    - master
+    - docker rmi easyfit_ms-client --force
+    - docker rmi easyfit_ms-config --force
+  # only:
+  #   - master
 
 build-prod:
   stage: build
   script:
     - docker-compose --file docker-stack.yml build 
-  only:
-    - master
+  # only:
+  #   - master
 
 deploy-prod:
   stage: deploy
   script:
     - echo y | docker stack deploy -c docker-stack.yml easyFitStack
-  only:
-    - master
+  # only:
+  #   - master

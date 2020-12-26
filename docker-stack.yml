@@ -1,21 +1,21 @@
 version: '3.7'
 
 services:
-  ms-api:
-    image: easyfit_ms-api
+  easyfit-api:
+    image: easyfit-api
     build:
-      context: ms-api
+      context: easyfit-api
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
       - "7000:7000" # debug
     restart: always
-    depends_on: 
+    depends_on:
       - db
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/polls?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
-      SPRING_DATASOURCE_USERNAME: callicoder
-      SPRING_DATASOURCE_PASSWORD: callicoder     
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/workout?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
     networks:
       - backend
       - frontend
@@ -27,46 +27,16 @@ services:
       restart_policy:
         condition: on-failure
 
-  ms-auth:
-    image: easyfit_ms-auth
+  easyfit-ui:
+    image: easyfit-ui
     build:
-      context: ms-auth
-      dockerfile: Dockerfile
-    ports:
-      - "8081:8081"
-      - "7001:7001" # debug
-    restart: always
-    depends_on: 
-      - db
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/polls?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
-      SPRING_DATASOURCE_USERNAME: callicoder
-      SPRING_DATASOURCE_PASSWORD: callicoder     
-    networks:
-      - backend
-      - frontend
-    deploy:
-      replicas: 1
-      update_config:
-        parallelism: 2
-        delay: 10s
-      restart_policy:
-        condition: on-failure
-
-  ms-client:
-    image: easyfit_ms-client
-    build:
-      context: ms-client
+      context: easyfit-ui
       dockerfile: Dockerfile
       args:
-        REACT_APP_API_BASE_URL: http://51.91.101.96:8080/api  # todo externalize config
+        REACT_APP_API_BASE_URL: http://localhost:8080/api
     ports:
       - "9090:80"
     restart: always
-    depends_on:
-      - ms-api
-    networks:
-      - frontend  
     deploy:
       replicas: 2
       update_config:
@@ -82,21 +52,21 @@ services:
     restart: always
     environment:
       MYSQL_DATABASE: polls
-      MYSQL_USER: callicoder
-      MYSQL_PASSWORD: callicoder
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
       MYSQL_ROOT_PASSWORD: root
     volumes:
       - db-data:/var/lib/mysql
     networks:
-      - backend  
+      - backend
     deploy:
-      replicas: 2
+      replicas: 1
       update_config:
-        parallelism: 2
+        parallelism: 1
         delay: 10s
       restart_policy:
         condition: on-failure
-  
+
 volumes:
   db-data:
 
