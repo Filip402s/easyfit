@@ -15,13 +15,13 @@ export interface SingleWorkout {
 }
 
 export interface Exercise {
-    id: string;
+    id: number;
     name: string;
 }
 
 export interface Set {
     order: number;
-    weight: number;
+    weight: string;
     reps: number;
 }
 
@@ -35,11 +35,12 @@ export interface ExerciseData {
 
 const WorkoutDay: React.FC<Props> = ({workout}) => {
 
-    const exercises: Exercise[] = [{id: uuid.v4(), name: "Deadlift"}, {id: uuid.v4(), name: "Bench press"},
-        {id: uuid.v4(), name: "Pullups"}, {id: uuid.v4(), name: "Rows"}, {id: uuid.v4(), name: "Squats"}];
-    const exerciseOptions = ['Bench press', 'Deadlift', 'Pullups', 'Rows'];
-    const weightOptions = ['20', '30', '40', '50', '60', '70', '80'];
-    const repsOptions = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14'];
+    const exercises: Exercise[] = [{id: 1, name: "Deadlift"}, {id: 2, name: "Bench press"},
+        {id: 3, name: "Pullups"}, {id: 4, name: "Rows"}, {id: 5, name: "Squats"}, { id: 6, name: "Overhead press" },
+        {id: 7, name: "Bicep curl"}, {id: 8, name: "Lat raise"}, {id: 9, name: "Skullcrushers"}, {id: 10, name: "Dips"}, {id: 11, name: "Ab crunches"}];
+    const exerciseOptions = exercises.map(exercise => exercise.name);
+    const weightOptions = ['None', '3', '5', '6', '7', '8', '10', '20', '30', '40', '50', '60', '65', '67,5', '70', '72,5', '75', '77,5', '80', '82,5', '85', '90', '100', '110', '120', '130', '140', '150'];
+    const repsOptions = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16'];
     const defaultExercise = exercises.find(exercise => exercise.name === "Deadlift") || exercises[0];
 
     const [exerciseData, setExerciseData] = useState<ExerciseData[]>([]);
@@ -55,13 +56,13 @@ const WorkoutDay: React.FC<Props> = ({workout}) => {
         console.log(exerciseData);
 
         let exercise = exercises.find(e => e.name === selectedExercise);
-        console.log('2. selected exercise: ' +  JSON.stringify(exercise));
+        console.log('2. selected exercise: ' + JSON.stringify(exercise));
         console.log(exercise);
         const newExercise: ExerciseData = {
             id: uuid.v4(),
-            exercise: exercise || defaultExercise,
+            exercise: exercise || exercises[0],
             order: 0,
-            sets: [{weight: +selectedWeight, reps: +selectedReps, order: 0}]
+            sets: [{weight: selectedWeight, reps: +selectedReps, order: 0}]
         }
         newExercises.push(newExercise);
         setExerciseData(newExercises);
