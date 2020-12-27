@@ -2,12 +2,12 @@ version: '3.7'
 
 services:
   easyfit-api:
-    image: easyfit-api
+    image: easyfit-api:0.2.0-SNAPSHOT
     build:
       context: easyfit-api
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
+      - "8001:8080"
       - "7000:7000" # debug
     restart: always
     depends_on:
@@ -28,7 +28,7 @@ services:
         condition: on-failure
 
   easyfit-ui:
-    image: easyfit-ui
+    image: easyfit-ui:0.2.0-SNAPSHOT
     build:
       context: easyfit-ui
       dockerfile: Dockerfile
