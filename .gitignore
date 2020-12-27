@@ -24,3 +24,4 @@ ms-auth/mvnw.cmd
 .idea/*
 easyfit-all.iml
 /easyfit-api/target
+easyfit-api/easyfit-api.iml

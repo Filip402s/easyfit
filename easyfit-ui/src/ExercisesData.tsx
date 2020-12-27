@@ -1,9 +1,14 @@
 import React, {useState} from 'react';
 import {ExerciseData} from "./WorkoutDay";
+import {Set} from "./WorkoutDay";
 
 interface Props {
     exercises: ExerciseData[];
     onDelete: any;
+}
+
+function getWeight(set: Set) {
+    return set.weight !== "None" ? set.weight + " kg" : "";
 }
 
 const ExercisesData: React.FC<Props> = ({onDelete, exercises}) => {
@@ -24,7 +29,7 @@ const ExercisesData: React.FC<Props> = ({onDelete, exercises}) => {
                     <div>
                         {exercise.sets.map((set) =>
                             <p key={Math.random()}>
-                                {set.weight}kg x {set.reps} reps
+                                {getWeight(set)} x {set.reps} reps
                             </p>
                         )}
                         <button onClick={() => deleteExercise(exercise)}>x</button>
