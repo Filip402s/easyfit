@@ -20,10 +20,8 @@ cleanup-prod:
   stage: cleanup
   script:
     - docker stack rm easyFitStack
-    - docker rmi easyfit_ms-api --force
-    - docker rmi easyfit_ms-auth --force
-    - docker rmi easyfit_ms-client --force
-    - docker rmi easyfit_ms-config --force
+    - docker rmi easyfit-ui --force
+    - docker rmi easyfit-api --force
   # only:
   #   - master
 
@@ -37,6 +35,6 @@ build-prod:
 deploy-prod:
   stage: deploy
   script:
-    - echo y | docker stack deploy -c docker-stack.yml easyFitStack
+    - echo y | docker stack deploy -c docker-stack.yml easyfit
   # only:
   #   - master
