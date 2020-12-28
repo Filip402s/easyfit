@@ -11,7 +11,7 @@ function getWeight(set: Set) {
     return set.weight !== "None" ? set.weight + " kg" : "";
 }
 
-const ExercisesData: React.FC<Props> = ({onDelete, exercises}) => {
+const CurrentExercisesData: React.FC<Props> = ({onDelete, exercises}) => {
 
     // const [exerciseInside, setExerciseInside] = useState<number>(0);
 
@@ -41,4 +41,4 @@ const ExercisesData: React.FC<Props> = ({onDelete, exercises}) => {
     )
 }
 
-export default ExercisesData;
+export default CurrentExercisesData;
