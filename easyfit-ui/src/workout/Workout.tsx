@@ -1,17 +1,17 @@
 import React, {useState} from 'react';
-import WorkoutDay, {SingleWorkout} from "./WorkoutDay";
-import {fetchLastWorkout} from "./API";
+import WorkoutDay from "./day/WorkoutDay";
 
 interface Props {
-
 }
 
 const Workout: React.FC<Props> = () => {
 
     const [isWorkout, setIsWorkout] = useState(false);
+    const [workoutStartDate, setWorkoutStartDate] = useState<Date>(new Date());
     // const [lastWorkout, setLastWorkout] = useState<SingleWorkout>({exercises: []});
 
     const initialize = () => {
+        setWorkoutStartDate(new Date());
         setIsWorkout(true);
         // fetchLastWorkout().then((response) => {
         //     setLastWorkout(response.data);
@@ -35,15 +35,10 @@ const Workout: React.FC<Props> = () => {
                 {!isWorkout &&
                 <button onClick={() => initialize()}>Start Workout!</button>}
 
-                {isWorkout && // lastWorkout &&
-                <WorkoutDay>
-
+                {isWorkout && <WorkoutDay startDate={workoutStartDate}>
                 </WorkoutDay>}
             </div>
-
         </div>
-
-
 
         // <DropdownButton id="dropdown-basic-button" title="Dropdown button">
         //         <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
