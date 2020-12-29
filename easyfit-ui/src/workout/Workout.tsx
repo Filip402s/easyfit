@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
-import WorkoutDay, {SingleWorkout} from "./WorkoutDay";
-import {fetchLastWorkout} from "./API";
+import WorkoutDay from "./day/WorkoutDay";
 
 interface Props {
 }

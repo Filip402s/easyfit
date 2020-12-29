@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import CurrentExercisesData from "./CurrentExercisesData";
-import AddExerciseSection from "./AddExerciseSection";
 
 import 'react-dropdown/style.css';
-import {getFormattedDate} from "./DateFormatter";
+import WorkoutInfo from "./info/WorkoutInfo";
+import AddExerciseSection from "./add/AddExerciseSection";
+import CurrentExercisesData from "./CurrentExercisesData";
 
 interface Props {
     startDate: Date;
@@ -36,10 +36,6 @@ export interface ExerciseData {
 const WorkoutDay: React.FC<Props> = ({startDate, workout}) => {
 
     const [exerciseData, setExerciseData] = useState<ExerciseData[]>([]);
-
-    const workoutStartInfo = () => {
-        return <div><span>Workout started at:<br/>{getFormattedDate(startDate)}</span></div>;
-    }
 
     const add = (newExercise: ExerciseData) => {
         const newExercises = [...exerciseData];
@@ -87,10 +83,9 @@ const WorkoutDay: React.FC<Props> = ({startDate, workout}) => {
     return (
         <div>
             <div>
-                {/*<WorkoutInfo />*/}
-                {workoutStartInfo()}
+                <WorkoutInfo startDate={startDate}/>
 
-                <AddExerciseSection onAdd={add} exercisesData={exerciseData}/>
+                <AddExerciseSection onAddExercise={add}/>
 
                 <CurrentExercisesData onDelete={onDeleteExercise} exercises={exerciseData}/>
 

@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
-import {Exercise, ExerciseData} from "./WorkoutDay";
+import {Exercise} from "../WorkoutDay";
 import Dropdown from "react-dropdown";
 import * as uuid from "uuid";
+import DebugInfo from "./DebugInfo";
 
 interface Props {
-    exercisesData: ExerciseData[];
-    onAdd: any;
+    onAddExercise: any;
 }
 
-const AddExerciseSection: React.FC<Props> = ({onAdd, exercisesData}) => {
+const AddExerciseSection: React.FC<Props> = ({onAddExercise}) => {
 
     const exercises: Exercise[] = [{id: 1, name: "Deadlift"}, {id: 2, name: "Bench press"},
         {id: 3, name: "Pullups"}, {id: 4, name: "Rows"}, {id: 5, name: "Squats"}, {id: 6, name: "Overhead press"},
@@ -22,24 +22,21 @@ const AddExerciseSection: React.FC<Props> = ({onAdd, exercisesData}) => {
     const [selectedWeight, setSelectedWeight] = useState<string>('20');
     const [selectedReps, setSelectedReps] = useState<string>('6');
 
-    const [debugMode, setDebugMode] = useState<boolean>(false);
-
     const addExercise = () => {
-        let selectedExercise = getNewExercise();
-        onAdd(selectedExercise);
+        const selectedExercise = getSelectedExercise();
+        onAddExercise(selectedExercise);
     }
 
-    const getNewExercise = () => {
+    const getSelectedExercise = () => {
         let exercise = exercises.find(e => e.name === selectedExercise);
         console.log('2. selected exercise: ' + JSON.stringify(exercise));
         console.log(exercise);
-        const newExercise: ExerciseData = {
+        return {
             id: uuid.v4(),
             exercise: exercise || exercises[0],
             order: 0,
             sets: [{weight: selectedWeight, reps: +selectedReps, order: 0}]
-        }
-        return newExercise;
+        };
     }
 
     const onExerciseChange = (event: any) => {
@@ -56,35 +53,18 @@ const AddExerciseSection: React.FC<Props> = ({onAdd, exercisesData}) => {
         setSelectedReps(event.value);
     }
 
-    const handleDebugModeChange = () => {
-        setDebugMode(!debugMode);
+    const getExerciseInfo = () => {
+        return {
+            selectedExercise: selectedExercise,
+            selectedWeight: selectedWeight,
+            selectedReps: selectedReps
+        };
     }
 
-    const debugModeCheckbox = () => {
-        return <input name="debugMode" type="checkbox" checked={debugMode}
-                      onChange={handleDebugModeChange}/>;
-    }
+    return (
+        <div>
+            <DebugInfo exerciseInfo={getExerciseInfo()}/>
 
-    const debugModeData = () => {
-        return <>
-            <div>
-                {selectedExercise && <div>
-                    <div>Exercise: {selectedExercise}</div>
-                </div>}
-                {selectedWeight && <div>
-                    <div>Weight: {selectedWeight}</div>
-                </div>}
-                {selectedReps && <div>
-                    <div>Reps: {selectedReps}</div>
-                </div>}
-            </div>
-        </>;
-    }
-
-    return (<div>
-
-            {debugMode && debugModeData()}
-            {debugModeCheckbox()}
             <div>
                 <Dropdown options={exerciseOptions} onChange={onExerciseChange} value={selectedExercise}
                           placeholder="Exercise"/>
