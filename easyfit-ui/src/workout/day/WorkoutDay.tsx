@@ -62,12 +62,31 @@ const WorkoutDay: React.FC<Props> = ({startDate, workout}) => {
     }
 
     const save = (event: any) => {
-        const host = 'http://localhost:8001';
+        const host = 'http://localhost:8080';
         console.log("Save: sending exercise data to host: " + host);
         console.log(exerciseData);
         const axios = require('axios');
 
         axios.post(host + '/workout', exerciseData)
+            .then(function (response: any) {
+                console.log(response);
+            })
+            .catch(function (error: any) {
+                console.log(error);
+            })
+            .then(function () {
+                console.log("Finished saving.");
+                setStateToWorkoutFinished();
+            });
+    }
+
+    const testApi = (event: any) => {
+        const host = 'http://localhost:8080';
+        console.log("Testing api: " + host);
+        const axios = require('axios');
+
+        // axios.get(host)
+        axios.get("/")
             .then(function (response: any) {
                 console.log(response);
             })
@@ -90,6 +109,7 @@ const WorkoutDay: React.FC<Props> = ({startDate, workout}) => {
                 <CurrentExercisesData onDelete={onDeleteExercise} exercises={exerciseData}/>
 
                 <button onClick={save}>Save</button>
+                <button onClick={testApi}>Test</button>
             </div>
         </div>
     )

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.springframework</groupId>
-    <artifactId>easyfit-api</artifactId>
-    <version>0.1.0</version>
+    <groupId>pl.mazzaq</groupId>
+    <artifactId>easyfit</artifactId>
+    <version>0.2.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>Easyfit API</name>
     <description>Getting started with Spring Boot and Docker</description>
@@ -13,15 +13,13 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.3.0.RELEASE</version>
-        <relativePath />
+        <version>2.4.1</version>
+        <relativePath/>
     </parent>
 
     <properties>
-        <docker.image.prefix>springio</docker.image.prefix>
         <java.version>1.8</java.version>
     </properties>
-
     <build>
         <plugins>
             <plugin>
@@ -30,7 +28,6 @@
             </plugin>
         </plugins>
     </build>
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>

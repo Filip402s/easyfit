@@ -19,7 +19,7 @@ precheck-prod:
 cleanup-prod:
   stage: cleanup
   script:
-    - docker stack rm easyFitStack
+    - docker stack rm easyfit
     - docker rmi easyfit-ui --force
     - docker rmi easyfit-api --force
   # only:
@@ -28,7 +28,7 @@ cleanup-prod:
 build-prod:
   stage: build
   script:
-    - docker-compose --file docker-stack.yml build 
+    - docker-compose --file docker-stack.yml build
   # only:
   #   - master
 
