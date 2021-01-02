@@ -20,8 +20,8 @@ cleanup-prod:
   stage: cleanup
   script:
     - docker stack rm easyfit
-    - docker rmi easyfit-ui --force
-    - docker rmi easyfit-api --force
+    - docker rmi easyfit-ui:0.2.0-SNAPSHOT --force
+    - docker rmi easyfit-api:0.2.0-SNAPSHOT --force
   # only:
   #   - master
 

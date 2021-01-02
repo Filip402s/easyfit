@@ -4,6 +4,7 @@ import 'react-dropdown/style.css';
 import WorkoutInfo from "./info/WorkoutInfo";
 import AddExerciseSection from "./add/AddExerciseSection";
 import CurrentExercisesData from "./CurrentExercisesData";
+import {getAbsoluteDomainUrl, getSaveWorkoutUrl} from "../../helpers/DomainUrlProvider";
 
 interface Props {
     startDate: Date;
@@ -62,12 +63,13 @@ const WorkoutDay: React.FC<Props> = ({startDate, workout}) => {
     }
 
     const save = (event: any) => {
-        const host = 'http://localhost:8080';
-        console.log("Save: sending exercise data to host: " + host);
-        console.log(exerciseData);
         const axios = require('axios');
 
-        axios.post(host + '/workout', exerciseData)
+        let url = getSaveWorkoutUrl();
+        console.log("Testing POST " + url);
+        console.log(exerciseData);
+
+        axios.post(url, exerciseData)
             .then(function (response: any) {
                 console.log(response);
             })
@@ -81,12 +83,12 @@ const WorkoutDay: React.FC<Props> = ({startDate, workout}) => {
     }
 
     const testApi = (event: any) => {
-        const host = 'http://localhost:8080';
-        console.log("Testing api: " + host);
         const axios = require('axios');
 
-        // axios.get(host)
-        axios.get("/")
+        const url = getAbsoluteDomainUrl() + "/";
+        console.log("Testing GET " + url);
+
+        axios.get(url)
             .then(function (response: any) {
                 console.log(response);
             })
