@@ -7,8 +7,7 @@ services:
       context: easyfit-api
       dockerfile: Dockerfile
     ports:
-      - "8001:8080"
-      - "7000:7000" # debug
+      - "8080:8080"
     restart: always
     depends_on:
       - db

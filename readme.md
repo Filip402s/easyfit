@@ -15,11 +15,17 @@ docker service logs easyFitStack_web -f
 ### build:
 ```
 - ultimate build all
-cd /root/repos/easyfit && cd easyfit-api && docker build -t easyfit-api:0.2.0-SNAPSHOT . && cd .. && cd easyfit-ui && docker build -t easyfit-ui:0.2.0-SNAPSHOT . && cd ..
+docker stack rm easyfit &&  docker rmi easyfit-ui:0.2.0-SNAPSHOT && docker rmi easyfit-api:0.2.0-SNAPSHOT && docker-compose --file docker-stack.yml build && docker stack deploy -c docker-stack.yml easyfit
 
 - build images
 docker-compose -f docker-stack.yml build
 
+```
+
+### config gitlab runner 
+```
+gitlab_runner_container_id = d1cd77196b63
+docker cp config.toml gitlab_runner:/etc/gitlab-runner/config.toml
 ```
 
 ### run standalone db:
