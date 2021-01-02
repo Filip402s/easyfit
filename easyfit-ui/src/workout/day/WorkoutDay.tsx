@@ -4,15 +4,10 @@ import 'react-dropdown/style.css';
 import WorkoutInfo from "./info/WorkoutInfo";
 import AddExerciseSection from "./add/AddExerciseSection";
 import CurrentExercisesData from "./CurrentExercisesData";
-import {getAbsoluteDomainUrl, getSaveWorkoutUrl} from "../../helpers/DomainUrlProvider";
+import {getAbsoluteDomainUrl, getFinishWorkoutUrl} from "../../helpers/DomainUrlProvider";
 
 interface Props {
     startDate: Date;
-    workout?: SingleWorkout;
-}
-
-export interface SingleWorkout {
-    exercises: Exercise[];
 }
 
 export interface Exercise {
@@ -27,34 +22,46 @@ export interface Set {
 }
 
 export interface ExerciseData {
-    // id: string = uuid();
-    id: string;
-    order: number;
-    exercise: Exercise;
-    sets: Set[];
+    exerciseId: number;
+    exerciseName: string;
+    weight: string;
+    reps: number;
 }
 
-const WorkoutDay: React.FC<Props> = ({startDate, workout}) => {
+export interface ExerciseDataListElement extends ExerciseData {
+    order: number;
+}
 
-    const [exerciseData, setExerciseData] = useState<ExerciseData[]>([]);
+const WorkoutDay: React.FC<Props> = ({startDate}) => {
+
+    const [exerciseData, setExerciseData] = useState<ExerciseDataListElement[]>([]);
 
     const add = (newExercise: ExerciseData) => {
         const newExercises = [...exerciseData];
-        console.log('1. current exercises: ');
+        console.log('Adding new exercise, current exercises: ');
         console.log(exerciseData);
 
-        // const newExercise = getNewExercise();
-
-        newExercises.push(newExercise);
+        newExercises.push({
+            order: exerciseData.length,
+            exerciseId: newExercise.exerciseId,
+            exerciseName: newExercise.exerciseName,
+            reps: newExercise.reps,
+            weight: newExercise.weight
+        });
         setExerciseData(newExercises);
-        console.log('3. new exercises: ');
+        console.log('Exercises after add: ');
         console.log(newExercises);
         return newExercises;
     }
 
-    const onDeleteExercise = (exercise: ExerciseData) => {
-        const newExercises = exerciseData.filter(obj => obj.id !== exercise.id);
+    const onDeleteExercise = (exerciseOrder: number) => {
+        const newExercises = exerciseData
+            .filter(exercise => exercise.order !== exerciseOrder)
+            .map((exercise, index) => ({...exercise, order: index}));
+
         setExerciseData(newExercises);
+        console.log("exercises after deletion: ");
+        console.log(newExercises);
         return newExercises;
     }
 
@@ -62,14 +69,14 @@ const WorkoutDay: React.FC<Props> = ({startDate, workout}) => {
         console.log("opening workout finished modal");
     }
 
-    const save = (event: any) => {
+    const finish = (event: any) => {
         const axios = require('axios');
 
-        let url = getSaveWorkoutUrl();
+        let url = getFinishWorkoutUrl();
         console.log("Testing POST " + url);
         console.log(exerciseData);
 
-        axios.post(url, exerciseData)
+        axios.post(url, {exercises: exerciseData})
             .then(function (response: any) {
                 console.log(response);
             })
@@ -110,7 +117,7 @@ const WorkoutDay: React.FC<Props> = ({startDate, workout}) => {
 
                 <CurrentExercisesData onDelete={onDeleteExercise} exercises={exerciseData}/>
 
-                <button onClick={save}>Save</button>
+                <button onClick={finish}>Finish</button>
                 <button onClick={testApi}>Test</button>
             </div>
         </div>

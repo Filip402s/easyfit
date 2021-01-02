@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {Exercise} from "../WorkoutDay";
 import Dropdown from "react-dropdown";
-import * as uuid from "uuid";
 import DebugInfo from "./DebugInfo";
 
 interface Props {
@@ -28,15 +27,20 @@ const AddExerciseSection: React.FC<Props> = ({onAddExercise}) => {
     }
 
     const getSelectedExercise = () => {
-        let exercise = exercises.find(e => e.name === selectedExercise);
-        console.log('2. selected exercise: ' + JSON.stringify(exercise));
-        console.log(exercise);
-        return {
-            id: uuid.v4(),
-            exercise: exercise || exercises[0],
-            order: 0,
-            sets: [{weight: selectedWeight, reps: +selectedReps, order: 0}]
-        };
+        const exercise: Exercise = exercises.find(e => e.name === selectedExercise) || exercises[0];
+        if (exercise !== undefined) {
+            console.log('Selected exercise: ' + JSON.stringify(exercise));
+            console.log(exercise);
+            return {
+                exerciseId: exercise.id,
+                exerciseName: exercise.name,
+                weight: selectedWeight,
+                reps: +selectedReps
+            };
+        } else {
+            console.error("[AddExerciseSection#addExercise] Error when trying to get selected exercise")
+            return null;
+        }
     }
 
     const onExerciseChange = (event: any) => {
@@ -84,7 +88,6 @@ const AddExerciseSection: React.FC<Props> = ({onAddExercise}) => {
             <button onClick={addExercise}>Add exercise</button>
         </div>
     )
-
 }
 
 export default AddExerciseSection;

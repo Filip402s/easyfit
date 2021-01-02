@@ -1,4 +1,4 @@
-package pl.mazzaq.rest;
+package pl.mazzaq.easyfit.workout.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

@@ -1,6 +1,13 @@
 ### local build:
 ```
-docker-compose down && echo y | docker-compose up --build --force-recreate -d
+docker-compose down && echo y | docker-compose -f docker-stack.yml up --build --force-recreate -d
+
+or
+
+sh scripts/deploy.sh
+sh scripts/backend-only.sh
+sh scripts/ui-only.sh
+sh scripts/build-only.sh
 ```
 
 ## vps

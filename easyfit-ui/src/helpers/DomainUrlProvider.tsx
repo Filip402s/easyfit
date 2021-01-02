@@ -7,7 +7,7 @@ export function getAbsoluteDomainUrl() {
     }
 }
 
-export function getSaveWorkoutUrl() {
+export function getFinishWorkoutUrl() {
     return getAbsoluteDomainUrl() + '/workout';
 }
 
