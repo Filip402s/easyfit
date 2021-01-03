@@ -4,14 +4,14 @@ Content-Type: application/json
 {
   "exercises":[
     {
-      "order":0,
+      "position":0,
       "exerciseId":2,
       "exerciseName":"Bench press",
       "reps":0,
       "weight":"20"
     },
     {
-      "order":1,
+      "position":1,
       "exerciseId":3,
       "exerciseName":"Pullups",
       "reps":5,

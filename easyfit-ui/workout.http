@@ -11,12 +11,12 @@ Content-Type: application/json;charset=UTF-8
       "id": "d83e1f39-3e6c-450b-bee3-170dfb3c01d0",
       "name": "Bench press"
     },
-    "order": 1,
+    "position": 1,
     "sets": [
       {
         "weight": 60,
         "reps": 10,
-        "order": 0
+        "position": 0
       }
     ]
   },
@@ -26,12 +26,12 @@ Content-Type: application/json;charset=UTF-8
       "id": "8b07e987-7d6a-49d7-bf2b-88c99b75047f",
       "name": "Bench press"
     },
-    "order": 2,
+    "position": 2,
     "sets": [
       {
         "weight": 20,
         "reps": 10,
-        "order": 0
+        "position": 0
       }
     ]
   },
@@ -41,12 +41,12 @@ Content-Type: application/json;charset=UTF-8
       "id": "35d84598-fafc-4dcd-9ee7-560ec6fac8aa",
       "name": "Bench press"
     },
-    "order": 0,
+    "position": 0,
     "sets": [
       {
         "weight": 30,
         "reps": 0,
-        "order": 0
+        "position": 0
       }
     ]
   },
@@ -56,12 +56,12 @@ Content-Type: application/json;charset=UTF-8
       "id": "97b60d48-54c8-40fe-a301-11606c3b9afa",
       "name": "Rows"
     },
-    "order": 3,
+    "position": 3,
     "sets": [
       {
         "weight": 60,
         "reps": 6,
-        "order": 0
+        "position": 0
       }
     ]
   }

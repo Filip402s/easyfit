@@ -13,5 +13,5 @@ public class ExerciseData {
     String exerciseName;
     String weight;
     int reps;
-    int order;
+    int position;
 }

@@ -12,16 +12,16 @@ function getWeight(weight: string) {
 
 const CurrentExercisesData: React.FC<Props> = ({onDelete, exercises}) => {
 
-    const deleteExercise = (exerciseOrder: number) => {
-        onDelete(exerciseOrder);
+    const deleteExercise = (exercisePosition: number) => {
+        onDelete(exercisePosition);
     }
 
     return (
         <div>
             {exercises.map((exercise: ExerciseDataListElement) =>
                 <p key={Math.random()}>
-                        {exercise.order + 1}. {exercise.exerciseName}: {getWeight(exercise.weight)} x {exercise.reps} reps
-                        <button onClick={() => deleteExercise(exercise.order)}>x</button>
+                        {exercise.position + 1}. {exercise.exerciseName}: {getWeight(exercise.weight)} x {exercise.reps} reps
+                        <button onClick={() => deleteExercise(exercise.position)}>x</button>
                 </p>
             )}
         </div>

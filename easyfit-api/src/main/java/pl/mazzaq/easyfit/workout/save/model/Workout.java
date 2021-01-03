@@ -9,5 +9,5 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Workout {
 
-    private final WorkoutInput workout;//todo
+    private final WorkoutInput workout;     //todo add fields for db entity
 }

@@ -16,7 +16,7 @@ export interface Exercise {
 }
 
 export interface Set {
-    order: number;
+    position: number;
     weight: string;
     reps: number;
 }
@@ -29,7 +29,7 @@ export interface ExerciseData {
 }
 
 export interface ExerciseDataListElement extends ExerciseData {
-    order: number;
+    position: number;
 }
 
 const WorkoutDay: React.FC<Props> = ({startDate}) => {
@@ -42,7 +42,7 @@ const WorkoutDay: React.FC<Props> = ({startDate}) => {
         console.log(exerciseData);
 
         newExercises.push({
-            order: exerciseData.length,
+            position: exerciseData.length,
             exerciseId: newExercise.exerciseId,
             exerciseName: newExercise.exerciseName,
             reps: newExercise.reps,
@@ -54,10 +54,10 @@ const WorkoutDay: React.FC<Props> = ({startDate}) => {
         return newExercises;
     }
 
-    const onDeleteExercise = (exerciseOrder: number) => {
+    const onDeleteExercise = (exercisePosition: number) => {
         const newExercises = exerciseData
-            .filter(exercise => exercise.order !== exerciseOrder)
-            .map((exercise, index) => ({...exercise, order: index}));
+            .filter(exercise => exercise.position !== exercisePosition)
+            .map((exercise, index) => ({...exercise, position: index}));
 
         setExerciseData(newExercises);
         console.log("exercises after deletion: ");
@@ -65,7 +65,7 @@ const WorkoutDay: React.FC<Props> = ({startDate}) => {
         return newExercises;
     }
 
-    function setStateToWorkoutFinished() {
+    const setStateToWorkoutFinished = () => {
         console.log("opening workout finished modal");
     }
 
@@ -110,16 +110,14 @@ const WorkoutDay: React.FC<Props> = ({startDate}) => {
 
     return (
         <div>
-            <div>
-                <WorkoutInfo startDate={startDate}/>
+            <WorkoutInfo startDate={startDate}/>
 
-                <AddExerciseSection onAddExercise={add}/>
+            <AddExerciseSection onAddExercise={add}/>
 
-                <CurrentExercisesData onDelete={onDeleteExercise} exercises={exerciseData}/>
+            <CurrentExercisesData onDelete={onDeleteExercise} exercises={exerciseData}/>
 
-                <button onClick={finish}>Finish</button>
-                <button onClick={testApi}>Test</button>
-            </div>
+            <button onClick={finish}>Finish</button>
+            <button onClick={testApi}>Test</button>
         </div>
     )
 }
