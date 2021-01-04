@@ -10,17 +10,6 @@ interface Props {
     startDate: Date;
 }
 
-export interface Exercise {
-    id: number;
-    name: string;
-}
-
-export interface Set {
-    position: number;
-    weight: string;
-    reps: number;
-}
-
 export interface ExerciseData {
     exerciseId: number;
     exerciseName: string;
@@ -32,9 +21,10 @@ export interface ExerciseDataListElement extends ExerciseData {
     position: number;
 }
 
-const WorkoutDay: React.FC<Props> = ({startDate}) => {
+const WorkoutDay: React.FC<Props> = ({startDate: startTime}) => {
 
     const [exerciseData, setExerciseData] = useState<ExerciseDataListElement[]>([]);
+    const [workoutFinishSuccessMsg, setWorkoutFinishSuccessMsg] = useState<any>("");
 
     const add = (newExercise: ExerciseData) => {
         const newExercises = [...exerciseData];
@@ -69,16 +59,35 @@ const WorkoutDay: React.FC<Props> = ({startDate}) => {
         console.log("opening workout finished modal");
     }
 
+    const createFinishWorkoutInput = () => {
+        return {
+            exercises: exerciseData,
+            startTime: startTime,
+            duration: getDurationMinutes()
+        }
+    }
+
+    const getDurationMinutes = () => {
+        var now = new Date();
+        var diffMs = Math.abs(now.getTime() - startTime.getTime()); // milliseconds between now & startTime
+        return Math.round(((diffMs % 86400000) % 3600000) / 60000);
+    }
+
     const finish = (event: any) => {
         const axios = require('axios');
 
-        let url = getFinishWorkoutUrl();
-        console.log("Testing POST " + url);
+        const url = getFinishWorkoutUrl();
+        console.log("Finish workout. Sending http POST " + url);
         console.log(exerciseData);
 
-        axios.post(url, {exercises: exerciseData})
+        const finishWorkoutInput = createFinishWorkoutInput();
+        console.log(finishWorkoutInput)
+
+        axios.post(url, finishWorkoutInput)
             .then(function (response: any) {
                 console.log(response);
+                // setWorkoutFinishSuccessMsg(response.data);
+                setWorkoutFinishSuccessMsg(JSON.stringify(response.data));
             })
             .catch(function (error: any) {
                 console.log(error);
@@ -110,7 +119,7 @@ const WorkoutDay: React.FC<Props> = ({startDate}) => {
 
     return (
         <div>
-            <WorkoutInfo startDate={startDate}/>
+            <WorkoutInfo startDate={startTime}/>
 
             <AddExerciseSection onAddExercise={add}/>
 
@@ -118,6 +127,8 @@ const WorkoutDay: React.FC<Props> = ({startDate}) => {
 
             <button onClick={finish}>Finish</button>
             <button onClick={testApi}>Test</button>
+
+            {workoutFinishSuccessMsg && <span>{workoutFinishSuccessMsg}</span>}
         </div>
     )
 }

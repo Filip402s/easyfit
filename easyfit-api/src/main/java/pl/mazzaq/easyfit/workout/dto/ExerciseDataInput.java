@@ -1,4 +1,4 @@
-package pl.mazzaq.easyfit.workout.save.model;
+package pl.mazzaq.easyfit.workout.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ExerciseData {
+public class ExerciseDataInput {
 
     int exerciseId;
     String exerciseName;

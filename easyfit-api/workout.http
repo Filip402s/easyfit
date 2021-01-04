@@ -17,12 +17,14 @@ Content-Type: application/json
       "reps":5,
       "weight":"None"
     }
-  ]
+  ],
+  "startTime": "2021-01-04T00:10:11.029Z",
+  "duration": 3
 }
 
 ###
 
-GET http://localhost:8080/
+GET http://localhost:8080/2
 Content-Type: application/json
 
 

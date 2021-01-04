@@ -1,10 +1,14 @@
 import React, {useState} from 'react';
-import {Exercise} from "../WorkoutDay";
 import Dropdown from "react-dropdown";
 import DebugInfo from "./DebugInfo";
 
 interface Props {
     onAddExercise: any;
+}
+
+interface Exercise {
+    id: number;
+    name: string;
 }
 
 const AddExerciseSection: React.FC<Props> = ({onAddExercise}) => {

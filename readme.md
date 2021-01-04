@@ -2,12 +2,15 @@
 ```
 docker-compose down && echo y | docker-compose -f docker-stack.yml up --build --force-recreate -d
 
+export SCRIPTS=path where path is $project_root/scripts
+
 or
 
-sh scripts/deploy.sh
-sh scripts/backend-only.sh
-sh scripts/ui-only.sh
-sh scripts/build-only.sh
+sh $SCRIPTS/deploy.sh
+sh $SCRIPTS/restart.sh
+sh $SCRIPTS/backend-only.sh
+sh $SCRIPTS/ui-only.sh
+sh $SCRIPTS/build-only.sh
 ```
 
 ## vps
