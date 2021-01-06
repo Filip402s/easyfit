@@ -11,10 +11,12 @@ import pl.mazzaq.easyfit.workout.dto.WorkoutOutput;
 import pl.mazzaq.easyfit.workout.service.WorkoutCrudService;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
+@RequestMapping("/workout")
 @RestController
 public class WorkoutController {
 
@@ -23,12 +25,6 @@ public class WorkoutController {
     @Autowired
     public WorkoutController(WorkoutCrudService workoutService) {
         this.workoutService = workoutService;
-    }
-
-    @GetMapping
-    public String getHello() {
-        log.info("HELLO TEST");
-        return "Hello";
     }
 
     @GetMapping("/{id}")
@@ -41,7 +37,7 @@ public class WorkoutController {
         return workout;
     }
 
-    @PostMapping("/workout")
+    @PostMapping
     public WorkoutOutput finishWorkout(@RequestBody @Valid WorkoutInput workout) {
 //        log.info("user {} is saving workout with data {}", userId, workout.toString());
         log.info("saving workout with data: {}", workout.toString());
@@ -49,6 +45,15 @@ public class WorkoutController {
         WorkoutOutput workoutOutput = workoutService.create(workout);
         log.info("successfully saved workout with data: {}", workoutOutput.toString());
         return workoutOutput;
+    }
+
+    @DeleteMapping("/{workoutId}")
+    public boolean deleteWorkout(@PathVariable @NotNull Integer workoutId) {
+        log.info("deleting workout with id: {}", workoutId);
+
+        boolean result = workoutService.delete(workoutId);
+        log.info("Deleting workout result: {}", result);
+        return result;
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

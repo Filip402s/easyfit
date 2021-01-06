@@ -4,7 +4,7 @@ import 'react-dropdown/style.css';
 import WorkoutInfo from "./info/WorkoutInfo";
 import AddExerciseSection from "./add/AddExerciseSection";
 import CurrentExercisesData from "./CurrentExercisesData";
-import {getAbsoluteDomainUrl, getFinishWorkoutUrl} from "../../helpers/DomainUrlProvider";
+import {getFinishWorkoutUrl} from "../../helpers/DomainUrlProvider";
 
 interface Props {
     startDate: Date;
@@ -98,25 +98,6 @@ const WorkoutDay: React.FC<Props> = ({startDate: startTime}) => {
             });
     }
 
-    const testApi = (event: any) => {
-        const axios = require('axios');
-
-        const url = getAbsoluteDomainUrl() + "/";
-        console.log("Testing GET " + url);
-
-        axios.get(url)
-            .then(function (response: any) {
-                console.log(response);
-            })
-            .catch(function (error: any) {
-                console.log(error);
-            })
-            .then(function () {
-                console.log("Finished saving.");
-                setStateToWorkoutFinished();
-            });
-    }
-
     return (
         <div>
             <WorkoutInfo startDate={startTime}/>
@@ -126,7 +107,6 @@ const WorkoutDay: React.FC<Props> = ({startDate: startTime}) => {
             <CurrentExercisesData onDelete={onDeleteExercise} exercises={exerciseData}/>
 
             <button onClick={finish}>Finish</button>
-            <button onClick={testApi}>Test</button>
 
             {workoutFinishSuccessMsg && <span>{workoutFinishSuccessMsg}</span>}
         </div>

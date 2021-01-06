@@ -3,20 +3,16 @@ package pl.mazzaq.easyfit.workout.repository.entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
-import pl.mazzaq.easyfit.workout.dto.WorkoutInput;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.List;
 
-@ToString
 @Data
 @AllArgsConstructor
-@Entity
 @NoArgsConstructor
+@Entity
 public class Workout {
 
     @Id
@@ -27,10 +23,21 @@ public class Workout {
 
     private Integer duration;
 
-    public Workout(WorkoutInput input) {
-        this.startTime = Timestamp.valueOf(input.getStartTime());
-        this.duration = input.getDuration();
-        //todo set exercises
+    @OneToMany(mappedBy = "workout", cascade = CascadeType.ALL)
+    private List<ExerciseData> exercises;
+
+    public Workout(LocalDateTime startTime, Integer duration) {
+        this.startTime = Timestamp.valueOf(startTime);
+        this.duration = duration;
+    }
+
+    @Override
+    public String toString() {
+        return "Workout{" +
+                "startTime=" + startTime +
+                ", duration=" + duration +
+                ", exercises=" + exercises +
+                '}';
     }
 }
 

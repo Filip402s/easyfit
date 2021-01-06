@@ -4,14 +4,20 @@ Content-Type: application/json
 {
   "exercises":[
     {
-      "position":0,
+      "position":2,
       "exerciseId":2,
       "exerciseName":"Bench press",
       "reps":0,
       "weight":"20"
     },
     {
-      "position":1,
+      "position":0,
+      "exerciseId":3,
+      "exerciseName":"Pullups",
+      "reps":5,
+      "weight":"None"
+    }, {
+      "position": 1,
       "exerciseId":3,
       "exerciseName":"Pullups",
       "reps":5,
@@ -24,13 +30,12 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:8080/2
+GET http://localhost:8080/workout/53
 Content-Type: application/json
-
 
 ###
 
-GET http://localhost:8080/workout
+DELETE http://localhost:8080/workout/99
 Content-Type: application/json
 
 

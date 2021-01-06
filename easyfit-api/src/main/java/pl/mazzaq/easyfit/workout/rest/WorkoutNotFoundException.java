@@ -5,10 +5,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class WorkoutNotFoundException extends RuntimeException {
 
-    private static final String MSG = "Problem with reading workout from repository.";
+    private static final String msg = "Problem with reading workout from repository.";
 
     public WorkoutNotFoundException() {
-        super(MSG);
-        log.error(MSG);
+        super(msg);
+        log.error(msg);
     }
 }

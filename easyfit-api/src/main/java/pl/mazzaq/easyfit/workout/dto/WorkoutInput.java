@@ -4,7 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import pl.mazzaq.easyfit.workout.dto.validation.PositionConstraint;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -17,7 +19,8 @@ import java.util.List;
 public class WorkoutInput {
 
     @NotNull
-    List<ExerciseDataInput> exercises;
+    @PositionConstraint
+    List<@Valid ExerciseDataInput> exercises;
 
     @NotNull
     LocalDateTime startTime;

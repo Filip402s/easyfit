@@ -2,7 +2,7 @@
 ```
 docker-compose down && echo y | docker-compose -f docker-stack.yml up --build --force-recreate -d
 
-export SCRIPTS=path where path is $project_root/scripts
+export EASYFIT="/home/mazaq/repos/easyfit-group/easyfit" && export SCRIPTS=$EASYFIT/scripts
 
 or
 
