@@ -6,6 +6,4 @@ import pl.mazzaq.easyfit.workout.repository.entities.Workout;
 
 @Repository
 public interface WorkoutRepository extends JpaRepository<Workout, Integer> {
-//public interface WorkoutRepository extends CrudRepository<Workout, Integer> {
-
 }
