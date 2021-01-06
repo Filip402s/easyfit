@@ -1,11 +1,14 @@
 import React, {useState} from 'react';
-import {Exercise} from "../WorkoutDay";
 import Dropdown from "react-dropdown";
-import * as uuid from "uuid";
 import DebugInfo from "./DebugInfo";
 
 interface Props {
     onAddExercise: any;
+}
+
+interface Exercise {
+    id: number;
+    name: string;
 }
 
 const AddExerciseSection: React.FC<Props> = ({onAddExercise}) => {
@@ -13,7 +16,7 @@ const AddExerciseSection: React.FC<Props> = ({onAddExercise}) => {
     const exercises: Exercise[] = [{id: 1, name: "Deadlift"}, {id: 2, name: "Bench press"},
         {id: 3, name: "Pullups"}, {id: 4, name: "Rows"}, {id: 5, name: "Squats"}, {id: 6, name: "Overhead press"},
         {id: 7, name: "Bicep curl"}, {id: 8, name: "Lat raise"}, {id: 9, name: "Skullcrushers"},
-        {id: 10, name: "Dips"}, {id: 11, name: "Ab crunches"}];
+        {id: 10, name: "Dips"}, {id: 11, name: "Ab crunches"}, {id: 12, name: "Pushups"}, {id: 13, name: "Inverted rows"}];
     const exerciseOptions = exercises.map(exercise => exercise.name);
     const weightOptions = ['None', '3', '5', '6', '7', '8', '10', '20', '30', '40', '50', '60', '65', '67,5', '70', '72,5', '75', '77,5', '80', '82,5', '85', '90', '100', '110', '120', '130', '140', '150'];
     const repsOptions = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16'];
@@ -28,15 +31,20 @@ const AddExerciseSection: React.FC<Props> = ({onAddExercise}) => {
     }
 
     const getSelectedExercise = () => {
-        let exercise = exercises.find(e => e.name === selectedExercise);
-        console.log('2. selected exercise: ' + JSON.stringify(exercise));
-        console.log(exercise);
-        return {
-            id: uuid.v4(),
-            exercise: exercise || exercises[0],
-            order: 0,
-            sets: [{weight: selectedWeight, reps: +selectedReps, order: 0}]
-        };
+        const exercise: Exercise = exercises.find(e => e.name === selectedExercise) || exercises[0];
+        if (exercise !== undefined) {
+            console.log('Selected exercise: ' + JSON.stringify(exercise));
+            console.log(exercise);
+            return {
+                exerciseId: exercise.id,
+                exerciseName: exercise.name,
+                weight: selectedWeight,
+                reps: +selectedReps
+            };
+        } else {
+            console.error("[AddExerciseSection#addExercise] Error when trying to get selected exercise")
+            return null;
+        }
     }
 
     const onExerciseChange = (event: any) => {
@@ -84,7 +92,6 @@ const AddExerciseSection: React.FC<Props> = ({onAddExercise}) => {
             <button onClick={addExercise}>Add exercise</button>
         </div>
     )
-
 }
 
 export default AddExerciseSection;

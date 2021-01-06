@@ -1,42 +1,29 @@
-import React, {useState} from 'react';
-import {ExerciseData} from "./WorkoutDay";
-import {Set} from "./WorkoutDay";
+import React from 'react';
+import {ExerciseDataListElement} from "./WorkoutDay";
 
 interface Props {
-    exercises: ExerciseData[];
     onDelete: any;
+    exercises: ExerciseDataListElement[];
 }
 
-function getWeight(set: Set) {
-    return set.weight !== "None" ? set.weight + " kg" : "";
+function getWeight(weight: string) {
+    return weight !== "None" ? weight + " kg" : "Bodyweight";
 }
 
 const CurrentExercisesData: React.FC<Props> = ({onDelete, exercises}) => {
 
-    // const [exerciseInside, setExerciseInside] = useState<number>(0);
-
-    const deleteExercise = (exercise: ExerciseData) => {
-        onDelete(exercise);
+    const deleteExercise = (exercisePosition: number) => {
+        onDelete(exercisePosition);
     }
 
     return (
         <div>
-            {exercises.map((exercise: ExerciseData) =>
-                <div key={Math.random()}>
-                    <p key={Math.random()}>
-                        {exercise.exercise.name}
-                    </p>
-                    <div>
-                        {exercise.sets.map((set) =>
-                            <p key={Math.random()}>
-                                {getWeight(set)} x {set.reps} reps
-                            </p>
-                        )}
-                        <button onClick={() => deleteExercise(exercise)}>x</button>
-                    </div>
-                </div>
+            {exercises.map((exercise: ExerciseDataListElement) =>
+                <p key={Math.random()}>
+                        {exercise.position + 1}. {exercise.exerciseName}: {getWeight(exercise.weight)} x {exercise.reps} reps
+                        <button onClick={() => deleteExercise(exercise.position)}>x</button>
+                </p>
             )}
-            {/*<p>Value: {exerciseInside}</p>*/}
         </div>
     )
 }

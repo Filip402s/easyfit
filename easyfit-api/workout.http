@@ -1,0 +1,41 @@
+POST http://localhost:8080/workout
+Content-Type: application/json
+
+{
+  "exercises":[
+    {
+      "position":2,
+      "exerciseId":2,
+      "exerciseName":"Bench press",
+      "reps":0,
+      "weight":"20"
+    },
+    {
+      "position":0,
+      "exerciseId":3,
+      "exerciseName":"Pullups",
+      "reps":5,
+      "weight":"None"
+    }, {
+      "position": 1,
+      "exerciseId":3,
+      "exerciseName":"Pullups",
+      "reps":5,
+      "weight":"None"
+    }
+  ],
+  "startTime": "2021-01-04T00:10:11.029Z",
+  "duration": 3
+}
+
+###
+
+GET http://localhost:8080/workout/53
+Content-Type: application/json
+
+###
+
+DELETE http://localhost:8080/workout/99
+Content-Type: application/json
+
+

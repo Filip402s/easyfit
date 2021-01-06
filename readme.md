@@ -1,6 +1,16 @@
 ### local build:
 ```
-docker-compose down && echo y | docker-compose up --build --force-recreate -d
+docker-compose down && echo y | docker-compose -f docker-stack.yml up --build --force-recreate -d
+
+export EASYFIT="/home/mazaq/repos/easyfit-group/easyfit" && export SCRIPTS=$EASYFIT/scripts
+
+or
+
+sh $SCRIPTS/deploy.sh
+sh $SCRIPTS/restart.sh
+sh $SCRIPTS/backend-only.sh
+sh $SCRIPTS/ui-only.sh
+sh $SCRIPTS/build-only.sh
 ```
 
 ## vps

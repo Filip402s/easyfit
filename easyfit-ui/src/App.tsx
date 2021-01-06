@@ -6,7 +6,7 @@ function App() {
     return (
         <div className="App">
             <div>
-                <Workout></Workout>
+                <Workout/>
             </div>
             {/*<p> Easyfit v0.1 </p>*/}
         </div>

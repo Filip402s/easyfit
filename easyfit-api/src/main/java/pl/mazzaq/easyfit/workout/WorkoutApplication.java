@@ -1,4 +1,4 @@
-package pl.mazzaq.rest;
+package pl.mazzaq.easyfit.workout;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
