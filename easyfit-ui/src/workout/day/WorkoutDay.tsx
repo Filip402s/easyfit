@@ -4,7 +4,7 @@ import 'react-dropdown/style.css';
 import WorkoutInfo from "./info/WorkoutInfo";
 import AddExerciseSection from "./add/AddExerciseSection";
 import CurrentExercisesData from "./CurrentExercisesData";
-import {getFinishWorkoutUrl} from "../../helpers/DomainUrlProvider";
+import {getWorkoutUrl} from "../../helpers/DomainUrlProvider";
 
 interface Props {
     startDate: Date;
@@ -106,7 +106,7 @@ const WorkoutDay: React.FC<Props> = ({startDate: startTime}) => {
     const finish = (event: any) => {
         const axios = require('axios');
 
-        const url = getFinishWorkoutUrl();
+        const url = getWorkoutUrl();
         console.log("Finish workout. Sending http POST " + url);
         console.log(exerciseData);
 

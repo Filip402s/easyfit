@@ -2,9 +2,6 @@ package pl.mazzaq.easyfit.workout.rest;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import pl.mazzaq.easyfit.workout.dto.WorkoutInput;
 import pl.mazzaq.easyfit.workout.dto.WorkoutOutput;
@@ -12,8 +9,7 @@ import pl.mazzaq.easyfit.workout.service.WorkoutCrudService;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Slf4j
 @RequestMapping("/workout")
@@ -28,13 +24,22 @@ public class WorkoutController {
     }
 
     @GetMapping("/{id}")
-    public WorkoutOutput getWorkout(@PathVariable Integer id) {
+    public WorkoutOutput getWorkoutById(@PathVariable Integer id) {
         log.info("getting workout with id {}", id);
 
-        WorkoutOutput workout = workoutService.read(id);
+        WorkoutOutput workout = workoutService.readById(id);
         log.info("successfully read workout: {}", workout.toString());
 
         return workout;
+    }
+    @GetMapping
+    public List<WorkoutOutput> getWorkoutHistory() {
+        log.info("getting workout history");
+
+        Collection<WorkoutOutput> workoutHistory = workoutService.readAll();
+        log.info("successfully read workout: {}", workoutHistory.toString());
+
+        return new ArrayList<>(workoutHistory);
     }
 
     @PostMapping

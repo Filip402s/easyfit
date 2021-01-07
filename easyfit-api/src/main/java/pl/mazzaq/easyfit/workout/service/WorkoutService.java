@@ -13,6 +13,7 @@ import pl.mazzaq.easyfit.workout.rest.WorkoutNotFoundException;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -26,10 +27,17 @@ public class WorkoutService implements WorkoutCrudService {
     }
 
     @Override
-    public WorkoutOutput read(Integer id) {
+    public WorkoutOutput readById(Integer id) {
         return workoutRepository.findById(id)
                 .map(WorkoutOutput::of)
                 .orElseThrow(WorkoutNotFoundException::new);
+    }
+
+    @Override
+    public List<WorkoutOutput> readAll() {
+        return workoutRepository.findAll().stream()
+                .map(WorkoutOutput::of)
+                .collect(Collectors.toList());
     }
 
     @Override

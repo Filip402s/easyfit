@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import WorkoutDay from "./day/WorkoutDay";
+import WorkoutHistory from "./history/WorkoutHistory";
 
 interface Props {
 }
@@ -19,6 +20,10 @@ const Workout: React.FC<Props> = () => {
         // })
     };
 
+    const back = () => {
+        setIsWorkout(false);
+    }
+
     return (
         <div>
             <div>
@@ -33,10 +38,19 @@ const Workout: React.FC<Props> = () => {
             </div>
             <div key={Math.random()}>
                 {!isWorkout &&
-                <button onClick={() => initialize()}>Start Workout!</button>}
+                <div>
+                    <button onClick={() => initialize()}>Start Workout!</button>
+                    <WorkoutHistory/>
+                </div>
+                }
 
-                {isWorkout && <WorkoutDay startDate={workoutStartDate}>
-                </WorkoutDay>}
+                {isWorkout &&
+                <div>
+                    <button onClick={() => back()}>History</button>
+                    <WorkoutDay startDate={workoutStartDate}>
+                    </WorkoutDay>
+                </div>
+                }
             </div>
         </div>
 
