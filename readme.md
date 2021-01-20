@@ -34,8 +34,8 @@ docker-compose -f docker-stack.yml build
 
 ### config gitlab runner 
 ```
-gitlab_runner_container_id = d1cd77196b63
-docker cp config.toml gitlab_runner:/etc/gitlab-runner/config.toml
+gitlab_runner_container_id = f969570e8c72
+docker cp config.toml f969570e8c72:/etc/gitlab-runner/config.toml
 ```
 
 ### run standalone db:

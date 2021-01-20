@@ -13,15 +13,16 @@ precheck-prod:
     - docker --version
     - docker ps -a
     - docker-compose --version
+    - docker network ls
   # only:
   #   - master
 
-cleanup-prod:
-  stage: cleanup
-  script:
-    - docker stack rm easyfit
-    - docker rmi easyfit-ui:0.2.0-SNAPSHOT --force
-    - docker rmi easyfit-api:0.2.0-SNAPSHOT --force
+# cleanup-prod:
+#   stage: cleanup
+#   script:
+#     - docker stack rm easyfit
+#     - docker rmi easyfit-ui:0.2.0-SNAPSHOT --force
+#     - docker rmi easyfit-api:0.2.0-SNAPSHOT --force
   # only:
   #   - master
 
