@@ -56,7 +56,7 @@ const WorkoutDay: React.FC<Props> = ({startDate: startTime}) => {
     }
 
     const onDuplicateExercise = (exercisePosition: number) => {
-        const toDuplicate: ExerciseDataListElement | null = exerciseData.find(exercise => exercise.position == exercisePosition) || null;
+        const toDuplicate: ExerciseDataListElement | null = exerciseData.find(exercise => exercise.position === exercisePosition) || null;
         if (toDuplicate != null) {
             var newExercise = Object.assign({}, toDuplicate);
             newExercise.position = exerciseData.length;
@@ -66,6 +66,20 @@ const WorkoutDay: React.FC<Props> = ({startDate: startTime}) => {
 
             setExerciseData(newExercises);
             console.log("exercises after duplicate: ");
+            console.log(newExercises);
+            return newExercises;
+        }
+    }
+
+    const onEditReps = (exercisePosition: number, newValue: number) => {
+        const modified: ExerciseDataListElement | null = exerciseData.find(exercise => exercise.position === exercisePosition) || null;
+        if (modified != null) {
+            modified.reps = newValue;
+            const newExercises: Array<ExerciseDataListElement> = [];
+            exerciseData.forEach(val => newExercises.push(Object.assign({}, val)));
+
+            setExerciseData(newExercises);
+            console.log("exercises after edit: ");
             console.log(newExercises);
             return newExercises;
         }
@@ -122,6 +136,7 @@ const WorkoutDay: React.FC<Props> = ({startDate: startTime}) => {
 
             <CurrentExercisesData onDelete={onDeleteExercise}
                                   onDuplicate={onDuplicateExercise}
+                                  onEditReps={onEditReps}
                                   exercises={exerciseData}/>
 
             <button onClick={finish}>Finish</button>
