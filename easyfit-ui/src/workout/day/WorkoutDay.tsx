@@ -55,6 +55,22 @@ const WorkoutDay: React.FC<Props> = ({startDate: startTime}) => {
         return newExercises;
     }
 
+    const onDuplicateExercise = (exercisePosition: number) => {
+        const toDuplicate: ExerciseDataListElement | null = exerciseData.find(exercise => exercise.position == exercisePosition) || null;
+        if (toDuplicate != null) {
+            var newExercise = Object.assign({}, toDuplicate);
+            newExercise.position = exerciseData.length;
+            const newExercises: Array<ExerciseDataListElement> = [];
+            exerciseData.forEach(val => newExercises.push(Object.assign({}, val)));
+            newExercises.push(newExercise);
+
+            setExerciseData(newExercises);
+            console.log("exercises after duplicate: ");
+            console.log(newExercises);
+            return newExercises;
+        }
+    }
+
     const setStateToWorkoutFinished = () => {
         console.log("opening workout finished modal");
     }
@@ -104,7 +120,9 @@ const WorkoutDay: React.FC<Props> = ({startDate: startTime}) => {
 
             <AddExerciseSection onAddExercise={add}/>
 
-            <CurrentExercisesData onDelete={onDeleteExercise} exercises={exerciseData}/>
+            <CurrentExercisesData onDelete={onDeleteExercise}
+                                  onDuplicate={onDuplicateExercise}
+                                  exercises={exerciseData}/>
 
             <button onClick={finish}>Finish</button>
 
