@@ -4,16 +4,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import pl.mazzaq.easyfit.workout.dto.ExerciseDataInput;
 
+import javax.persistence.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
-//@Entity
+@Entity
 public class ExerciseData {
 
-    //    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     private Integer exerciseId;
@@ -24,8 +25,8 @@ public class ExerciseData {
 
     private Integer position;
 
-//    @ManyToOne
-//    @JoinColumn(name = "workout_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "workout_id", nullable = false)
     private Workout workout;
 
     public ExerciseData(Integer exerciseId, String weight, Integer reps, Integer position, Workout workout) {

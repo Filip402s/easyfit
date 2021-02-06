@@ -1,4 +1,4 @@
-package pl.mazzaq.easyfit.workout.repository;
+package pl.mazzaq.easyfit.workout.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,10 +6,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.mazzaq.easyfit.workout.dto.WorkoutInput;
 import pl.mazzaq.easyfit.workout.dto.WorkoutOutput;
+import pl.mazzaq.easyfit.workout.repository.WorkoutRepository;
 import pl.mazzaq.easyfit.workout.repository.entities.ExerciseData;
 import pl.mazzaq.easyfit.workout.repository.entities.Workout;
 import pl.mazzaq.easyfit.workout.rest.WorkoutNotFoundException;
-import pl.mazzaq.easyfit.workout.service.WorkoutCrudService;
 
 import java.util.List;
 import java.util.Optional;
