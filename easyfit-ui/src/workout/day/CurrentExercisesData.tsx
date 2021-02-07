@@ -27,8 +27,8 @@ const CurrentExercisesData: React.FC<Props> = ({onDelete, onDuplicate, onEditRep
 
     return (
         <div>
-            {exercises.map((exercise: ExerciseDataListElement) =>
-                <p key={Math.random()}>
+            {exercises.map((exercise: ExerciseDataListElement, index) =>
+                <p key={index.toString()}>
                     {exercise.position + 1}. {exercise.exerciseName}: {getWeight(exercise.weight)} x {exercise.reps}
                     <button onClick={() => editReps(exercise.position, exercise.reps + 1)}>+</button>
                     <button onClick={() => editReps(exercise.position, exercise.reps - 1)}>-</button>

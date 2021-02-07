@@ -11,6 +11,7 @@ import pl.mazzaq.easyfit.workout.repository.entities.ExerciseData;
 import pl.mazzaq.easyfit.workout.repository.entities.Workout;
 import pl.mazzaq.easyfit.workout.rest.WorkoutNotFoundException;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -36,6 +37,7 @@ public class WorkoutService implements WorkoutCrudService {
     @Override
     public List<WorkoutOutput> readAll() {
         return workoutRepository.findAll().stream()
+                .sorted(Comparator.comparing(Workout::getStartTime).reversed())
                 .map(WorkoutOutput::of)
                 .collect(Collectors.toList());
     }

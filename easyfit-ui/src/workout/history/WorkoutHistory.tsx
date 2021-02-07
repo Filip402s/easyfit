@@ -1,18 +1,27 @@
 import React, {useEffect, useState} from "react";
 import {getWorkoutUrl} from "../../helpers/DomainUrlProvider";
+import {ExerciseDataListElement} from "../day/WorkoutDay";
+import {getFormattedDateTime} from "../../helpers/DateFormatter";
 
 interface Props {
 }
 
+interface Workout {
+    id: number;
+    startTime: string;
+    duration: number;
+    exercises: any;
+}
+
 const WorkoutHistory: React.FC<Props> = () => {
 
-    const [workouts, setWorkouts] = useState<string>("");
+    const [workouts, setWorkouts] = useState<Workout[]>([]);
 
     useEffect(() => {
         init();
     }, []);
 
-    function init() {
+    const init = () => {
         const axios = require('axios');
 
         const url = getWorkoutUrl();
@@ -22,7 +31,7 @@ const WorkoutHistory: React.FC<Props> = () => {
             .then(function (response: any) {
                 console.log("Response from history endpoint: ");
                 console.log(response);
-                const history = JSON.stringify(response.data);
+                const history = response.data;
                 setWorkouts(history);
             })
             .catch(function (error: any) {
@@ -33,9 +42,21 @@ const WorkoutHistory: React.FC<Props> = () => {
             });
     }
 
+    const renderWorkouts = () => {
+        return (
+            <div>
+                {workouts.map((workout: Workout, index) =>
+                    <p key={index.toString()}>
+                        {index+1}: {getFormattedDateTime(new Date(Date.parse(workout.startTime)))}
+                    </p>
+                )}
+            </div>
+        );
+    }
+
     return (
         <div>
-            Workouts: {workouts}<br/>
+            Workouts: <br/>{renderWorkouts()}
         </div>
     )
 }

@@ -1,3 +1,7 @@
+export function getFormattedDateTime(date: Date) {
+    return getFormattedDate(date) + " at " + getFormattedTime(date);
+}
+
 export function getFormattedTime(date: Date) {
     return leftpad(date.getHours(), 2)
         + ':' + leftpad(date.getMinutes(), 2)
