@@ -7,8 +7,12 @@ export function getAbsoluteDomainUrl() {
     }
 }
 
-export function getFinishWorkoutUrl() {
+export function getWorkoutUrl() {
     return getAbsoluteDomainUrl() + '/workout';
+}
+
+export function getExercisesUrl() {
+    return getAbsoluteDomainUrl() + '/exercises';
 }
 
 function replacePortWith(url: string, port: string) {

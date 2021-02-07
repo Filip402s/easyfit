@@ -3,6 +3,7 @@ package pl.mazzaq.easyfit.workout.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.mazzaq.easyfit.workout.dto.validation.ExerciseExistsConstraint;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -10,9 +11,10 @@ import javax.validation.constraints.NotNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ExerciseExistsConstraint
 public class ExerciseDataInput {
 
-    int exerciseId;
+    Integer exerciseId;
 
     String exerciseName;
 

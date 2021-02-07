@@ -1,5 +1,5 @@
 import React from 'react';
-import {getFormattedTime, getFormattedDate} from "../../../helpers/DateFormatter";
+import {getFormattedDateTime} from "../../../helpers/DateFormatter";
 
 interface Props {
     startDate: Date;
@@ -9,7 +9,7 @@ const WorkoutInfo: React.FC<Props> = ({startDate}) => {
 
     return (
         <div>
-            <span>Started on: {getFormattedDate(startDate)} at {getFormattedTime(startDate)}</span>
+            <span>Started on: {getFormattedDateTime(startDate)}</span>
         </div>
     )
 }
