@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.mazzaq.easyfit.workout.dto.WorkoutConverter;
 import pl.mazzaq.easyfit.workout.dto.WorkoutInput;
 import pl.mazzaq.easyfit.workout.dto.WorkoutOutput;
 import pl.mazzaq.easyfit.workout.repository.WorkoutRepository;
@@ -21,16 +22,18 @@ import java.util.stream.Collectors;
 public class WorkoutService implements WorkoutCrudService {
 
     private final WorkoutRepository workoutRepository;
+    private final WorkoutConverter workoutConverter;
 
     @Autowired
-    public WorkoutService(WorkoutRepository workoutRepository) {
+    public WorkoutService(WorkoutRepository workoutRepository, WorkoutConverter workoutConverter) {
         this.workoutRepository = workoutRepository;
+        this.workoutConverter = workoutConverter;
     }
 
     @Override
     public WorkoutOutput readById(Integer id) {
         return workoutRepository.findById(id)
-                .map(WorkoutOutput::of)
+                .map(workoutConverter::convert)
                 .orElseThrow(WorkoutNotFoundException::new);
     }
 
@@ -38,7 +41,7 @@ public class WorkoutService implements WorkoutCrudService {
     public List<WorkoutOutput> readAll() {
         return workoutRepository.findAll().stream()
                 .sorted(Comparator.comparing(Workout::getStartTime).reversed())
-                .map(WorkoutOutput::of)
+                .map(workoutConverter::convert)
                 .collect(Collectors.toList());
     }
 
@@ -46,12 +49,12 @@ public class WorkoutService implements WorkoutCrudService {
     @Transactional
     public WorkoutOutput create(WorkoutInput input) {
         Workout workout = new Workout(input.getStartTime(), input.getDuration());
-        List<ExerciseData> exercises = ExerciseData.of(input.getExercises(), workout);
+        List<ExerciseData> exercises = workoutConverter.convert(input.getExercises(), workout);
         workout.setExercises(exercises);
 
         log.info("Saving to repository workout {}", workout);
         Workout workoutFromDb = workoutRepository.save(workout);
-        return WorkoutOutput.of(workoutFromDb);
+        return workoutConverter.convert(workoutFromDb);
     }
 
     @Override

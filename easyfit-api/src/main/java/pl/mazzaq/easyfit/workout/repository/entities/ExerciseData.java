@@ -2,11 +2,8 @@ package pl.mazzaq.easyfit.workout.repository.entities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pl.mazzaq.easyfit.workout.dto.ExerciseDataInput;
 
 import javax.persistence.*;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
@@ -17,7 +14,9 @@ public class ExerciseData {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private Integer exerciseId;
+    @ManyToOne
+    @JoinColumn(name = "exercise_id", nullable = false)
+    private Exercise exercise;
 
     private String weight;
 
@@ -29,24 +28,18 @@ public class ExerciseData {
     @JoinColumn(name = "workout_id", nullable = false)
     private Workout workout;
 
-    public ExerciseData(Integer exerciseId, String weight, Integer reps, Integer position, Workout workout) {
-        this.exerciseId = exerciseId;
+    public ExerciseData(Exercise exercise, String weight, Integer reps, Integer position, Workout workout) {
+        this.exercise = exercise;
         this.weight = weight;
         this.reps = reps;
         this.position = position;
         this.workout = workout;
     }
 
-    public static List<ExerciseData> of(List<ExerciseDataInput> exercises, Workout workout) {
-        return exercises.stream()
-                .map(input -> new ExerciseData(input.getExerciseId(), input.getWeight(), input.getReps(), input.getPosition(), workout))
-                .collect(Collectors.toList());
-    }
-
     @Override
     public String toString() {
         return "ExerciseData{" +
-                "exerciseId=" + exerciseId +
+                "exerciseId=" + exercise.getId() +
                 ", weight='" + weight + '\'' +
                 ", reps=" + reps +
                 ", position=" + position +

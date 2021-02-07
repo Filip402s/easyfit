@@ -1,5 +1,5 @@
 import React from 'react';
-import {getFormattedTime, getFormattedDate, getFormattedDateTime} from "../../../helpers/DateFormatter";
+import {getFormattedDateTime} from "../../../helpers/DateFormatter";
 
 interface Props {
     startDate: Date;

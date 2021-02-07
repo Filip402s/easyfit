@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {getWorkoutUrl} from "../../helpers/DomainUrlProvider";
 import {ExerciseDataListElement} from "../day/WorkoutDay";
 import {getFormattedDateTime} from "../../helpers/DateFormatter";
+import {getWeight} from "../day/CurrentExercisesData";
 
 interface Props {
 }
@@ -10,7 +11,7 @@ interface Workout {
     id: number;
     startTime: string;
     duration: number;
-    exercises: any;
+    exercises: ExerciseDataListElement[];
 }
 
 const WorkoutHistory: React.FC<Props> = () => {
@@ -42,13 +43,33 @@ const WorkoutHistory: React.FC<Props> = () => {
             });
     }
 
+    const renderDuration = (duration: number) => {
+        if (duration == null || duration === 0) {
+            return "";
+        } else {
+            return "duration: " + duration + " minutes";
+        }
+    }
+
+    const renderExerciseData = (exercises: ExerciseDataListElement[]) => {
+        return exercises.map((exercise, i) =>
+            <p key={i.toString() + Math.random()}>&nbsp;{exercise.position + 1}. {exercise.exerciseName}:&nbsp;{getWeight(exercise.weight)} x {exercise.reps}</p>
+        );
+    }
+
+    const renderWorkoutDate = (workout: Workout, index: number) => {
+        return <>{index + 1}: {getFormattedDateTime(new Date(Date.parse(workout.startTime)))}{<br/>}</>;
+    }
+
     const renderWorkouts = () => {
         return (
             <div>
-                {workouts.map((workout: Workout, index) =>
-                    <p key={index.toString()}>
-                        {index+1}: {getFormattedDateTime(new Date(Date.parse(workout.startTime)))}
-                    </p>
+                {workouts.map((workout: Workout, index: number) =>
+                    <div key={index.toString()}>
+                        {renderWorkoutDate(workout, index)}
+                        {renderDuration(workout.duration)}
+                        {renderExerciseData(workout.exercises)}
+                    </div>
                 )}
             </div>
         );

@@ -16,12 +16,4 @@ public class WorkoutOutput {
     private final String startTime;
     private final Integer duration;
     private final List<ExerciseDataOutput> exercises;
-
-    public static WorkoutOutput of(Workout workout) {
-        return new WorkoutOutput(
-                workout.getId(),
-                workout.getStartTime().toLocalDateTime().toString(),
-                workout.getDuration(),
-                ExerciseDataOutput.of(workout.getExercises()));
-    }
 }

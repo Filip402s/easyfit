@@ -8,7 +8,7 @@ interface Props {
     exercises: ExerciseDataListElement[];
 }
 
-function getWeight(weight: string) {
+export const getWeight = (weight: string) => {
     return weight !== "None" ? weight + " kg" : "Bodyweight";
 }
 
