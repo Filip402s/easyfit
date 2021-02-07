@@ -22,6 +22,11 @@ echo y | docker stack deploy -c docker-stack.yml easyfit
 docker service logs easyFitStack_web -f
 ```
 
+### docker cleanup:
+```
+docker kill $(docker ps -q) ; docker rm $(docker ps -a -q) ; docker rmi $(docker images -q -a)
+```
+
 ### build:
 ```
 - ultimate build all
@@ -37,6 +42,15 @@ docker-compose -f docker-stack.yml build
 gitlab_runner_container_id = f969570e8c72
 docker cp config.toml f969570e8c72:/etc/gitlab-runner/config.toml
 ```
+
+- run gitlab runner
+```
+docker run -d --name gitlab-runner --restart always \
+-v /srv/gitlab-runner/config:/etc/gitlab-runner \
+-v /var/run/docker.sock:/var/run/docker.sock \
+gitlab/gitlab-runner:latest
+``` 
+
 
 ### run standalone db:
 ```
