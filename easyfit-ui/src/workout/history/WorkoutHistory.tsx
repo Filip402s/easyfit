@@ -64,13 +64,18 @@ const WorkoutHistory: React.FC<Props> = () => {
     const renderWorkouts = () => {
         return (
             <div>
-                {workouts.map((workout: Workout, index: number) =>
+                {workouts.length > 0 && workouts.map((workout: Workout, index: number) =>
                     <div key={index.toString()}>
                         {renderWorkoutDate(workout, index)}
                         {renderDuration(workout.duration)}
                         {renderExerciseData(workout.exercises)}
                     </div>
                 )}
+                {workouts.length == 0 &&
+                    <div>
+                        nothing added yet
+                    </div>
+                }
             </div>
         );
     }
