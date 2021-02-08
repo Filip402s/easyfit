@@ -24,8 +24,19 @@ docker service logs easyFitStack_web -f
 
 ### docker cleanup:
 ```
+hard cleanup:
+    
 docker kill $(docker ps -q) ; docker rm $(docker ps -a -q) ; docker rmi $(docker images -q -a)
 ```
+
+```
+light cleanup:
+docker volume rm $(docker volume ls -qf dangling=true) ;
+docker rm $(docker ps -qa --no-trunc --filter "status=exited") ;
+docker rmi $(docker images -q -a) ; 
+service docker restart
+```
+
 
 ### build:
 ```
