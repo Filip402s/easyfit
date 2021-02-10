@@ -1,27 +1,41 @@
 import React, {useState} from 'react';
 import WorkoutDay from "./day/WorkoutDay";
-import WorkoutHistory from "./history/WorkoutHistory";
+import WorkoutHistory, {Workout} from "./history/WorkoutHistory";
+import WorkoutSummary from "./summary/WorkoutSummary";
 
 interface Props {
 }
 
-const Workout: React.FC<Props> = () => {
+enum Tabs {
+    History,
+    WorkoutDay,
+    Summary
+}
 
-    const [isWorkout, setIsWorkout] = useState(false);
+const WorkoutApp: React.FC<Props> = () => {
+
+    const [tab, setTab] = useState(Tabs.History);
     const [workoutStartDate, setWorkoutStartDate] = useState<Date>(new Date());
-    // const [lastWorkout, setLastWorkout] = useState<SingleWorkout>({exercises: []});
+    const [lastWorkout, setLastWorkout] = useState<Workout>();
 
-    const initialize = () => {
+    const startWorkout = () => {
         setWorkoutStartDate(new Date());
-        setIsWorkout(true);
+        setTab(Tabs.WorkoutDay);
         // fetchLastWorkout().then((response) => {
         //     setLastWorkout(response.data);
         //     response.data.exercises.forEach((exercise) => console.log("Exercise: " + exercise.name));
         // })
     };
 
-    const back = () => {
-        setIsWorkout(false);
+    const openHistoryTab = () => {
+        setTab(Tabs.History);
+    }
+
+    const onWorkoutSaveSuccess = (savedWorkout: any) => {
+        setLastWorkout(savedWorkout);
+        console.log("Saved workout:");
+        console.log(savedWorkout);
+        setTab(Tabs.Summary);
     }
 
     return (
@@ -37,18 +51,25 @@ const Workout: React.FC<Props> = () => {
 
             </div>
             <div key={Math.random()}>
-                {!isWorkout &&
+                {tab == Tabs.History &&
                 <div>
-                    <button onClick={() => initialize()}>Start Workout!</button>
+                    <button onClick={() => startWorkout()}>Start Workout!</button>
                     <WorkoutHistory/>
                 </div>
                 }
-
-                {isWorkout &&
+                {tab == Tabs.WorkoutDay &&
                 <div>
-                    <button onClick={() => back()}>History</button>
-                    <WorkoutDay startDate={workoutStartDate}>
+                    <button onClick={() => openHistoryTab()}>History</button>
+                    <WorkoutDay startDate={workoutStartDate} onSuccess={onWorkoutSaveSuccess}>
                     </WorkoutDay>
+                </div>
+                }
+                {tab == Tabs.Summary &&
+                <div>
+                    <button onClick={() => openHistoryTab()}>History</button>
+                    <button onClick={() => startWorkout()}>Start Workout!</button>
+                    {lastWorkout && <WorkoutSummary workout={lastWorkout}>
+                    </WorkoutSummary>}
                 </div>
                 }
             </div>
@@ -63,4 +84,4 @@ const Workout: React.FC<Props> = () => {
     )
 }
 
-export default Workout;
+export default WorkoutApp;

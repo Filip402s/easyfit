@@ -8,6 +8,7 @@ import {getWorkoutUrl} from "../../helpers/DomainUrlProvider";
 
 interface Props {
     startDate: Date;
+    onSuccess: any;
 }
 
 export interface ExerciseData {
@@ -21,10 +22,9 @@ export interface ExerciseDataListElement extends ExerciseData {
     position: number;
 }
 
-const WorkoutDay: React.FC<Props> = ({startDate: startTime}) => {
+const WorkoutDay: React.FC<Props> = ({startDate: startTime, onSuccess}) => {
 
     const [exerciseData, setExerciseData] = useState<ExerciseDataListElement[]>([]);
-    const [workoutFinishSuccessMsg, setWorkoutFinishSuccessMsg] = useState<any>("");
 
     const add = (newExercise: ExerciseData) => {
         const newExercises = [...exerciseData];
@@ -103,6 +103,10 @@ const WorkoutDay: React.FC<Props> = ({startDate: startTime}) => {
         return Math.round(((diffMs % 86400000) % 3600000) / 60000);
     }
 
+    const success = (savedWorkout: any) => {
+        onSuccess(savedWorkout);
+    }
+
     const finish = (event: any) => {
         const axios = require('axios');
 
@@ -116,8 +120,7 @@ const WorkoutDay: React.FC<Props> = ({startDate: startTime}) => {
         axios.post(url, finishWorkoutInput)
             .then(function (response: any) {
                 console.log(response);
-                // setWorkoutFinishSuccessMsg(response.data);
-                setWorkoutFinishSuccessMsg(JSON.stringify(response.data));
+                success(response.data);
             })
             .catch(function (error: any) {
                 console.log(error);
@@ -140,8 +143,6 @@ const WorkoutDay: React.FC<Props> = ({startDate: startTime}) => {
                                   exercises={exerciseData}/>
 
             <button onClick={finish}>Finish</button>
-
-            {workoutFinishSuccessMsg && <span>{workoutFinishSuccessMsg}</span>}
         </div>
     )
 }
