@@ -3,39 +3,22 @@ image: tiangolo/docker-with-compose
 stages:
   - precheck
   - cleanup
-  - build
-  - deploy
 
 precheck-prod:
   stage: precheck
   script:
+    - whoami
+    - pwd
     - ls -al
     - docker --version
     - docker ps -a
     - docker-compose --version
     - docker network ls
-  # only:
-  #   - master
 
 cleanup-prod:
   stage: cleanup
   script:
     - docker stack rm easyfit
-    # - docker rmi easyfit-ui:0.2.0-SNAPSHOT --force
-    # - docker rmi easyfit-api:0.2.0-SNAPSHOT --force
-  # only:
-  #   - master
-
-build-prod:
-  stage: build
-  script:
-    - docker-compose --file docker-stack.yml build
-  # only:
-  #   - master
-
-deploy-prod:
-  stage: deploy
-  script:
-    - echo y | docker stack deploy -c docker-stack.yml easyfit
-  # only:
-  #   - master
+    - sh scripts/cleanup.sh
+  only:
+    - cleanup
