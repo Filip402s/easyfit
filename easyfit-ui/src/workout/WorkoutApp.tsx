@@ -17,6 +17,7 @@ const WorkoutApp: React.FC<Props> = () => {
     const [tab, setTab] = useState(Tabs.History);
     const [workoutStartDate, setWorkoutStartDate] = useState<Date>(new Date());
     const [lastWorkout, setLastWorkout] = useState<Workout>();
+    const [shareInfo, setShareInfo] = useState<string>("");
 
     const startWorkout = () => {
         setWorkoutStartDate(new Date());
@@ -25,6 +26,14 @@ const WorkoutApp: React.FC<Props> = () => {
         //     setLastWorkout(response.data);
         //     response.data.exercises.forEach((exercise) => console.log("Exercise: " + exercise.name));
         // })
+    };
+
+    const share = () => {
+        if (lastWorkout !== undefined) {
+            
+            setShareInfo("success");
+        }
+
     };
 
     const openHistoryTab = () => {
@@ -40,16 +49,6 @@ const WorkoutApp: React.FC<Props> = () => {
 
     return (
         <div>
-            <div>
-                {/*<button onClick={() => initialize()}>Get last workout</button>*/}
-                {/*<p> Last Workout </p>*/}
-                {/*{lastWorkout.exercises.map(exercise => {*/}
-                {/*    return (<div key={exercise.name+Math.random()}>*/}
-                {/*        Exercise name: {exercise.name}*/}
-                {/*    </div>);*/}
-                {/*})}*/}
-
-            </div>
             <div key={Math.random()}>
                 {tab == Tabs.History &&
                 <div>
@@ -68,6 +67,10 @@ const WorkoutApp: React.FC<Props> = () => {
                 <div>
                     <button onClick={() => openHistoryTab()}>History</button>
                     <button onClick={() => startWorkout()}>Start Workout!</button>
+                    <br/>
+                    <button onClick={() => share()}>Share</button>
+                    <span>{shareInfo}</span>
+
                     {lastWorkout && <WorkoutSummary workout={lastWorkout}>
                     </WorkoutSummary>}
                 </div>
