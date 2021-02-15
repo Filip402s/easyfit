@@ -1,11 +1,16 @@
 package pl.mazzaq.easyfit.workout.rest;
 
+import com.github.redouane59.twitter.dto.tweet.Tweet;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.mazzaq.easyfit.workout.dto.WorkoutInput;
 import pl.mazzaq.easyfit.workout.dto.WorkoutOutput;
 import pl.mazzaq.easyfit.workout.service.WorkoutCrudService;
+import pl.mazzaq.easyfit.workout.service.EasyfitWorkoutService;
+import pl.mazzaq.easyfit.workout.share.twitter.EasyfitTweet;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -16,10 +21,10 @@ import java.util.*;
 @RestController
 public class WorkoutController {
 
-    private final WorkoutCrudService workoutService;
+    private final EasyfitWorkoutService workoutService;
 
     @Autowired
-    public WorkoutController(WorkoutCrudService workoutService) {
+    public WorkoutController(EasyfitWorkoutService workoutService) {
         this.workoutService = workoutService;
     }
 
@@ -59,5 +64,17 @@ public class WorkoutController {
         boolean result = workoutService.delete(workoutId);
         log.info("Deleting workout result: {}", result);
         return result;
+    }
+
+    @PostMapping("/share/{id}")
+    public ResponseEntity<String> shareWorkout(@PathVariable Integer id) {
+        log.info("sharing workout with id: {}", id);
+
+        EasyfitTweet tweetInfo = workoutService.share(id);
+        if (!tweetInfo.isSuccess()) {
+            return new ResponseEntity<>(tweetInfo.getInfo(), HttpStatus.BAD_REQUEST);
+        }
+        log.info("successfully shared workout with data: {}", tweetInfo.toString());
+        return new ResponseEntity<>(tweetInfo.getTweet().getId(), HttpStatus.OK);
     }
 }

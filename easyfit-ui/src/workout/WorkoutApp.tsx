@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import WorkoutDay from "./day/WorkoutDay";
 import WorkoutHistory, {Workout} from "./history/WorkoutHistory";
 import WorkoutSummary from "./summary/WorkoutSummary";
+import {getShareUrl} from "../helpers/DomainUrlProvider";
 
 interface Props {
 }
@@ -18,10 +19,17 @@ const WorkoutApp: React.FC<Props> = () => {
     const [workoutStartDate, setWorkoutStartDate] = useState<Date>(new Date());
     const [lastWorkout, setLastWorkout] = useState<Workout>();
     const [shareInfo, setShareInfo] = useState<string>("");
+    const [shareUrl, setShareUrl] = useState<string>("");
+
+    const clearShareInfo = () => {
+        setShareUrl("");
+        setShareInfo("");
+    }
 
     const startWorkout = () => {
         setWorkoutStartDate(new Date());
         setTab(Tabs.WorkoutDay);
+        clearShareInfo();
         // fetchLastWorkout().then((response) => {
         //     setLastWorkout(response.data);
         //     response.data.exercises.forEach((exercise) => console.log("Exercise: " + exercise.name));
@@ -30,8 +38,28 @@ const WorkoutApp: React.FC<Props> = () => {
 
     const share = () => {
         if (lastWorkout !== undefined) {
-            
-            setShareInfo("success");
+            setShareUrl("");
+            setShareInfo("sharing...");
+            const axios = require('axios');
+
+            const url = getShareUrl(lastWorkout.id);
+            console.log("Sharing workout. Sending http POST " + url);
+
+            axios.post(url)
+                .then(function (response: any) {
+                    console.log(response);
+                    console.log(response.request.response);
+                    setShareUrl("https://twitter.com/mazakk94/status/" + response.request.response);
+                    setShareInfo('shared!');
+                })
+                .catch(function (error: any) {
+                    setShareInfo("sharing failed");
+                    setShareUrl("");
+                    console.log(error);
+                })
+                .then(function () {
+                    console.log("Finished sharing.");
+                });
         }
 
     };
@@ -69,7 +97,12 @@ const WorkoutApp: React.FC<Props> = () => {
                     <button onClick={() => startWorkout()}>Start Workout!</button>
                     <br/>
                     <button onClick={() => share()}>Share</button>
-                    <span>{shareInfo}</span>
+                    <br/>
+                    <span>
+                        {shareInfo}<br/>
+                        {shareUrl.length > 0 && <a href={shareUrl}>{shareUrl}</a>}
+                    </span>
+
 
                     {lastWorkout && <WorkoutSummary workout={lastWorkout}>
                     </WorkoutSummary>}

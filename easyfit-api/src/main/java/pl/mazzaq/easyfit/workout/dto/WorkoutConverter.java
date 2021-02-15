@@ -19,8 +19,22 @@ public class WorkoutConverter {
         this.exerciseService = exerciseService;
     }
 
-    public WorkoutOutput convert(Workout workout) {
+    public WorkoutOutput convertToOutput(Workout workout) {
         return of(workout);
+    }
+
+    public Workout convert(WorkoutInput input) {
+        Workout workout = new Workout(input.getStartTime(), input.getDuration());
+        List<ExerciseData> exercises = convert(input.getExercises(), workout);
+        workout.setExercises(exercises);
+        return workout;
+    }
+
+    public List<ExerciseData> convert(List<ExerciseDataInput> exercises, Workout workout) {
+        return exercises.stream()
+                .map(input -> new ExerciseData(exerciseService.getById(input.getExerciseId()),
+                        input.getWeight(), input.getReps(), input.getPosition(), workout))
+                .collect(Collectors.toList());
     }
 
     private static WorkoutOutput of(Workout workout) {
@@ -29,13 +43,6 @@ public class WorkoutConverter {
                 workout.getStartTime().toLocalDateTime().toString(),
                 workout.getDuration(),
                 of(workout.getExercises()));
-    }
-
-    public List<ExerciseData> convert(List<ExerciseDataInput> exercises, Workout workout) {
-        return exercises.stream()
-                .map(input -> new ExerciseData(exerciseService.getById(input.getExerciseId()),
-                        input.getWeight(), input.getReps(), input.getPosition(), workout))
-                .collect(Collectors.toList());
     }
 
     private static List<ExerciseDataOutput> of(List<ExerciseData> exercises) {

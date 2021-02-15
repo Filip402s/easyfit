@@ -15,6 +15,10 @@ export function getExercisesUrl() {
     return getAbsoluteDomainUrl() + '/exercises';
 }
 
+export function getShareUrl(id: number) {
+    return getWorkoutUrl() + '/share/' + id;
+}
+
 function replacePortWith(url: string, port: string) {
     const regExp = /9090/gi;
     return url.replace(regExp, port);
