@@ -46,6 +46,14 @@ public class EasyfitWorkoutService {
 
     public EasyfitTweet share(Integer workoutId) {
         WorkoutOutput workout = workoutCrudService.readById(workoutId);
+
+        String result = workout.getStartTime() + workout.getExercises() + workout.getDuration();
+
+//        "workout time: " + workout.getStartTime() + " " + workout.getExercises()
+
+        // todo tworzymy zmienną String, która zawiera wyselekcjonowane informacje nt. `workout`
+        // -
+
         return twitterService.postTweet(workout.toString());
     }
 }
