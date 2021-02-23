@@ -17,14 +17,14 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-dropdown": "^1.9.0",
-    "react-scripts": "^3.4.4",
+    "react-scripts": "^4.0.3",
     "react-select": "^3.1.0",
     "styled-components": "^5.2.0",
     "typescript": "^3.7.5"
   },
   "scripts": {
     "start-unix": "PORT=9090 react-scripts start",
-    "start": "react-scripts start",
+    "start": "set PORT=9090 && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
