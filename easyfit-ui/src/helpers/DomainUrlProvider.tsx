@@ -16,7 +16,8 @@ export function getExercisesUrl() {
 }
 
 function replacePortWith(url: string, port: string) {
-    const regExp = /9090/gi;
+    // const regExp = /9090/gi;
+    const regExp = /3000/gi;
     return url.replace(regExp, port);
 }
 
