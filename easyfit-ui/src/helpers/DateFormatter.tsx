@@ -4,8 +4,8 @@ export function getFormattedDateTime(date: Date) {
 
 export function getFormattedTime(date: Date) {
     return leftpad(date.getHours(), 2)
-        + ':' + leftpad(date.getMinutes(), 2);
-        // + ':' + leftpad(date.getSeconds(), 2);
+        + ':' + leftpad(date.getMinutes(), 2)
+        + ':' + leftpad(date.getSeconds(), 2);
 }
 
 export function getFormattedDate(date: Date) {

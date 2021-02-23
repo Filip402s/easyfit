@@ -41,12 +41,12 @@ const WorkoutApp: React.FC<Props> = () => {
     const startWorkout = () => {
         setWorkoutStartDate(new Date());
         setTab(Tabs.WorkoutDay);
-        // fetchLastWorkout().then((response) => {
-        //     setLastWorkout(response.data);
-        //     response.data.exercises.forEach((exercise) => console.log("Exercise: " + exercise.name));
-        // })
-    };
+    }
 
+    const backToWorkout = () => {
+        setTab(Tabs.WorkoutDay);
+    }
+    
     const openHistoryTab = () => {
         setTab(Tabs.History);
     }
@@ -73,6 +73,7 @@ const WorkoutApp: React.FC<Props> = () => {
             <div key={Math.random()}>
                 {tab == Tabs.History &&
                 <div>
+                    <button onClick={() => backToWorkout()}>Back</button>
                     <button onClick={() => startWorkout()}>Start Workout!</button>
                     <WorkoutHistory workoutData={workoutData}/>
                     <Button>I'm purple.</Button>
