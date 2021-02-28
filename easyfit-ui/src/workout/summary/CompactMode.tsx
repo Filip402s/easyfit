@@ -1,9 +1,7 @@
 import React from 'react';
 import {Workout} from "../history/WorkoutHistory";
 import {ExerciseDataListElement} from "../day/WorkoutDay";
-import {getWeight} from "../day/CurrentExercisesData";
 import {getFormattedDateTime} from "../../helpers/DateFormatter";
-import { totalmem } from 'os';
 
 interface Props {
     index?: number;
@@ -32,8 +30,8 @@ const CompactMode: React.FC<Props> = ({index = 0, workout}) => {
             return workoutTotals[cur.exerciseName] = {totalReps: cur.reps + workoutTotals[cur.exerciseName].totalReps, totalSets: workoutTotals[cur.exerciseName].totalSets + 1};
         }, workoutTotals);
 
-        return Object.entries(workoutTotals).map((exercise: any) => 
-            <p>{`${exercise[0]}: Total sets: ${exercise[1].totalSets} Total reps: ${exercise[1].totalReps}`}</p>
+        return Object.entries(workoutTotals).map((exercise: any, i: number) => 
+            <p key={i}>{`${exercise[0]}: Total sets: ${exercise[1].totalSets} Total reps: ${exercise[1].totalReps}`}</p>
         );
     }
 

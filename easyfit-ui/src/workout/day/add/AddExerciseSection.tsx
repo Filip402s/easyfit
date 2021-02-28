@@ -27,7 +27,6 @@ const AddExerciseSection: React.FC<Props> = ({onAddExercise}) => {
     const [exercises, setExercises] = useState<Exercise[]>([]);
     const [exerciseOptions, setExerciseOptions] = useState<string[]>([]);
 
-
     const init = () => {
         const axios = require('axios');
         const url = getExercisesUrl();
