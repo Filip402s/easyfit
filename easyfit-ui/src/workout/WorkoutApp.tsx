@@ -1,7 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import WorkoutDay from "./day/WorkoutDay";
 import WorkoutHistory, {Workout} from "./history/WorkoutHistory";
 import WorkoutSummary from "./summary/WorkoutSummary";
+import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
+import { listWorkouts } from "../redux/actions/WorkoutAction";
 
 interface Props {
 }
@@ -17,6 +19,14 @@ const WorkoutApp: React.FC<Props> = () => {
     const [tab, setTab] = useState(Tabs.History);
     const [workoutStartDate, setWorkoutStartDate] = useState<Date>(new Date());
     const [lastWorkout, setLastWorkout] = useState<Workout>();
+
+    const dispatch = useDispatch();
+    const workoutData = useSelector((state: RootStateOrAny) => state.workoutData);
+
+    useEffect(() => {
+        console.log("WorkoutApp component did mount");
+        dispatch(listWorkouts());
+    }, [dispatch]);
 
     const startWorkout = () => {
         setWorkoutStartDate(new Date());
@@ -54,7 +64,7 @@ const WorkoutApp: React.FC<Props> = () => {
                 {tab == Tabs.History &&
                 <div>
                     <button onClick={() => startWorkout()}>Start Workout!</button>
-                    <WorkoutHistory/>
+                    <WorkoutHistory workoutData={workoutData}/>
                 </div>
                 }
                 {tab == Tabs.WorkoutDay &&

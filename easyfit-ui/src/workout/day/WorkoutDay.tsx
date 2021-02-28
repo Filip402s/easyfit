@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import { useDispatch } from "react-redux";
+import { listWorkouts } from "../../redux/actions/WorkoutAction";
 
 import 'react-dropdown/style.css';
 import WorkoutInfo from "./info/WorkoutInfo";
@@ -25,6 +27,7 @@ export interface ExerciseDataListElement extends ExerciseData {
 const WorkoutDay: React.FC<Props> = ({startDate: startTime, onSuccess}) => {
 
     const [exerciseData, setExerciseData] = useState<ExerciseDataListElement[]>([]);
+    const dispatch = useDispatch();
 
     const add = (newExercise: ExerciseData) => {
         const newExercises = [...exerciseData];
@@ -109,26 +112,27 @@ const WorkoutDay: React.FC<Props> = ({startDate: startTime, onSuccess}) => {
 
     const finish = (event: any) => {
         const axios = require('axios');
-
+        
         const url = getWorkoutUrl();
         console.log("Finish workout. Sending http POST " + url);
         console.log(exerciseData);
-
+        
         const finishWorkoutInput = createFinishWorkoutInput();
         console.log(finishWorkoutInput)
-
+        
         axios.post(url, finishWorkoutInput)
-            .then(function (response: any) {
-                console.log(response);
-                success(response.data);
-            })
-            .catch(function (error: any) {
-                console.log(error);
-            })
-            .then(function () {
-                console.log("Finished saving.");
-                setStateToWorkoutFinished();
-            });
+        .then(function (response: any) {
+            console.log(response);
+            success(response.data);
+            dispatch(listWorkouts());
+        })
+        .catch(function (error: any) {
+            console.log(error);
+        })
+        .then(function () {
+            console.log("Finished saving.");
+            setStateToWorkoutFinished();
+        });
     }
 
     return (
