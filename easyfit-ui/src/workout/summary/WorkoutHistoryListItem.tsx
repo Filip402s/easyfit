@@ -19,14 +19,14 @@ const WorkoutHistoryListItem: React.FC<Props> = ({index = 0, workout}) => {
         }
     }
 
+    const renderWorkoutDate = (workout: Workout, index: number) => {
+        return <>{index + 1}: {getFormattedDateTime(new Date(Date.parse(workout.startTime)))}{<br/>}</>;
+    }
+
     const renderExerciseData = (exercises: ExerciseDataListElement[]) => {
         return exercises.map((exercise, i) =>
             <p key={i.toString() + Math.random()}>&nbsp;{exercise.position + 1}. {exercise.exerciseName}:&nbsp;{getWeight(exercise.weight)} x {exercise.reps}</p>
         );
-    }
-
-    const renderWorkoutDate = (workout: Workout, index: number) => {
-        return <>{index + 1}: {getFormattedDateTime(new Date(Date.parse(workout.startTime)))}{<br/>}</>;
     }
 
     return (
