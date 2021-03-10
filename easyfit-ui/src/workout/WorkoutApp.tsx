@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
+import CurrentExercisesData from './day/CurrentExercisesData';
 import WorkoutDay, {ExerciseDataListElement} from "./day/WorkoutDay";
 import WorkoutHistory, {Workout} from "./history/WorkoutHistory";
 import WorkoutSummary from "./summary/WorkoutSummary";
@@ -29,6 +30,7 @@ const WorkoutApp: React.FC<Props> = () => {
     const [tab, setTab] = useState(Tabs.History);
     const [workoutStartDate, setWorkoutStartDate] = useState<Date>(new Date());
     const [lastWorkout, setLastWorkout] = useState<Workout>();
+    // const [currentWorkout, setCurrentWorkout] = useState<ExerciseData>();
 
     const dispatch = useDispatch();
     const workoutData = useSelector((state: RootStateOrAny) => state.workoutData);
@@ -58,6 +60,11 @@ const WorkoutApp: React.FC<Props> = () => {
         setTab(Tabs.Summary);
     }
 
+    const onExercisesDataChange = (newExercisesData: any) => {
+        setExerciseData(newExercisesData);
+        console.log(newExercisesData);
+    }
+
     return (
         <div>
             <div>
@@ -82,7 +89,7 @@ const WorkoutApp: React.FC<Props> = () => {
                 {tab == Tabs.WorkoutDay &&
                 <div>
                     <button onClick={() => openHistoryTab()}>History</button>
-                    <WorkoutDay startDate={workoutStartDate} onSuccess={onWorkoutSaveSuccess}>
+                    <WorkoutDay exerciseData={exerciseData} onExercisesDataChange={onExercisesDataChange} startDate={workoutStartDate} onSuccess={onWorkoutSaveSuccess}>
                     </WorkoutDay>
                 </div>
                 }
