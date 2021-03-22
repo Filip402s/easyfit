@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import WorkoutDay from "./day/WorkoutDay";
+import styled from 'styled-components';
+import WorkoutDay, {ExerciseDataListElement} from "./day/WorkoutDay";
 import WorkoutHistory, {Workout} from "./history/WorkoutHistory";
 import WorkoutSummary from "./summary/WorkoutSummary";
 import {getShareUrl} from "../helpers/DomainUrlProvider";
@@ -15,8 +16,17 @@ enum Tabs {
     Summary
 }
 
+
+const Button = styled.button`
+  background: palevioletred;
+  border-radius: 3px;
+  border: none;
+  color: white;
+`
+
 const WorkoutApp: React.FC<Props> = () => {
 
+    const [exerciseData, setExerciseData] = useState<ExerciseDataListElement[]>([]);
     const [tab, setTab] = useState(Tabs.History);
     const [workoutStartDate, setWorkoutStartDate] = useState<Date>(new Date());
     const [lastWorkout, setLastWorkout] = useState<Workout>();
@@ -92,6 +102,7 @@ const WorkoutApp: React.FC<Props> = () => {
                 <div>
                     <button onClick={() => startWorkout()}>Start Workout!</button>
                     <WorkoutHistory workoutData={workoutData}/>
+                    <Button>I'm purple.</Button>
                 </div>
                 }
                 {tab == Tabs.WorkoutDay &&
