@@ -19,7 +19,7 @@ sh $SCRIPTS/build-only.sh
 ```
 docker-compose -f docker-stack.yml build
 echo y | docker stack deploy -c docker-stack.yml easyfit
-docker service logs easyFitStack_web -f
+docker service logs easyfit_easyfit-api -f
 ```
 
 ### docker cleanup:
@@ -37,6 +37,11 @@ docker rmi $(docker images -q -a) ;
 service docker restart
 ```
 
+### push into docker registry
+```
+docker-compose -f docker-stack.yml build
+docker push mazaq/easyfit-api:0.2.0-SNAPSHOT
+```
 
 ### build:
 ```
@@ -70,10 +75,20 @@ docker run -p 3306:3306 --name some-mysql -e MYSQL_ROOT_PASSWORD=root -d mysql:l
 package name:
 pl.mazzaq.easyfit
 
-steps to finish MVP for the project:
+
+### (deprecated) steps to finish MVP for the project:
 - [x] local react app
 - [x] vps -> deploy react app on gitlab server
 - [ ] + auth & config server
 - [ ] + CQRS
 - [ ] + products microservice
 - [ ] + diary microservice
+
+### twitter
+
+sudo nano ~/repos/easyfit-group/easyfit/easyfit-api/src/main/resources/twitter.properties
+
+apiKey=
+apiSecretKey=
+accessToken=
+accessTokenSecret=

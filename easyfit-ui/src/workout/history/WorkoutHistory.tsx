@@ -23,7 +23,7 @@ const WorkoutHistory: React.FC<Props> = ({workoutData}) => {
                 {!loading && [...workouts].map((workout: Workout, index: number) =>
                     <WorkoutHistoryListItem index={index} workout={workout}/>
                 )}
-                {workouts.length == 0 &&
+                {workouts.length === 0 &&
                 <div>
                     nothing added yet
                 </div>

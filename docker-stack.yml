@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   easyfit-api:
-    image: mazaq/easyfit-api:0.2.0-SNAPSHOT
+    image: mazaq/easyfit-api:0.2.1-SNAPSHOT
     build:
       context: easyfit-api
       dockerfile: Dockerfile
@@ -19,7 +19,7 @@ services:
       - backend
       - frontend
     deploy:
-      replicas: 2
+      replicas: 1
       update_config:
         parallelism: 2
         delay: 10s
