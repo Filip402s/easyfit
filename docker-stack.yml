@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   easyfit-api:
-    image: mazaq/easyfit-api:0.2.1-SNAPSHOT
+    image: mazaq/easyfit-api:0.2.2-SNAPSHOT
     build:
       context: easyfit-api
       dockerfile: Dockerfile
@@ -27,7 +27,7 @@ services:
         condition: on-failure
 
   easyfit-ui:
-    image: mazaq/easyfit-ui:0.2.0-SNAPSHOT
+    image: mazaq/easyfit-ui:0.2.1-SNAPSHOT
     build:
       context: easyfit-ui
       dockerfile: Dockerfile
