@@ -68,4 +68,10 @@ public class WorkoutService implements WorkoutCrudService {
         log.warn("Did not find matching workout to delete, id: {}", workoutId);
         return false;
     }
+
+    @Override
+    @Transactional
+    public void deleteAll() {
+        workoutRepository.deleteAll();
+    }
 }
