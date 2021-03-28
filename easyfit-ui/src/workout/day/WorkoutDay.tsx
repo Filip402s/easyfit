@@ -6,7 +6,6 @@ import WorkoutInfo from "./info/WorkoutInfo";
 import AddExerciseSection from "./add/AddExerciseSection";
 import CurrentExercisesData from "./CurrentExercisesData";
 import {getWorkoutUrl} from "../../helpers/DomainUrlProvider";
-import { couldStartTrivia } from 'typescript';
 
 interface Props {
     exerciseData: ExerciseDataListElement[];
@@ -44,7 +43,6 @@ const WorkoutDay: React.FC<Props> = ({startDate: startTime, onSuccess, onExercis
             weight: newExercise.weight
         });
         onExercisesDataChange(newExercises);
-        // setExerciseData(newExercises);
         console.log('Exercises after add: ');
         console.log(newExercises);
         return newExercises;
