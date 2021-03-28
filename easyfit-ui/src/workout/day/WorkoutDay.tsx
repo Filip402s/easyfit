@@ -8,8 +8,11 @@ import CurrentExercisesData from "./CurrentExercisesData";
 import {getWorkoutUrl} from "../../helpers/DomainUrlProvider";
 
 interface Props {
+    exerciseData: ExerciseDataListElement[];
     startDate: Date;
     onSuccess: any;
+    onExercisesDataChange: any;
+    onClearExerciseData: any;
 }
 
 export interface ExerciseData {
@@ -23,9 +26,8 @@ export interface ExerciseDataListElement extends ExerciseData {
     position: number;
 }
 
-const WorkoutDay: React.FC<Props> = ({startDate: startTime, onSuccess}) => {
+const WorkoutDay: React.FC<Props> = ({startDate: startTime, onSuccess, onExercisesDataChange, exerciseData, onClearExerciseData}) => {
 
-    const [exerciseData, setExerciseData] = useState<ExerciseDataListElement[]>([]);
     const dispatch = useDispatch();
 
     const add = (newExercise: ExerciseData) => {
@@ -40,7 +42,7 @@ const WorkoutDay: React.FC<Props> = ({startDate: startTime, onSuccess}) => {
             reps: newExercise.reps,
             weight: newExercise.weight
         });
-        setExerciseData(newExercises);
+        onExercisesDataChange(newExercises);
         console.log('Exercises after add: ');
         console.log(newExercises);
         return newExercises;
@@ -51,7 +53,7 @@ const WorkoutDay: React.FC<Props> = ({startDate: startTime, onSuccess}) => {
             .filter(exercise => exercise.position !== exercisePosition)
             .map((exercise, index) => ({...exercise, position: index}));
 
-        setExerciseData(newExercises);
+        onExercisesDataChange(newExercises);
         console.log("exercises after deletion: ");
         console.log(newExercises);
         return newExercises;
@@ -66,7 +68,7 @@ const WorkoutDay: React.FC<Props> = ({startDate: startTime, onSuccess}) => {
             exerciseData.forEach(val => newExercises.push(Object.assign({}, val)));
             newExercises.push(newExercise);
 
-            setExerciseData(newExercises);
+            onExercisesDataChange(newExercises);
             console.log("exercises after duplicate: ");
             console.log(newExercises);
             return newExercises;
@@ -80,7 +82,7 @@ const WorkoutDay: React.FC<Props> = ({startDate: startTime, onSuccess}) => {
             const newExercises: Array<ExerciseDataListElement> = [];
             exerciseData.forEach(val => newExercises.push(Object.assign({}, val)));
 
-            setExerciseData(newExercises);
+            onExercisesDataChange(newExercises);
             console.log("exercises after edit: ");
             console.log(newExercises);
             return newExercises;
@@ -111,19 +113,20 @@ const WorkoutDay: React.FC<Props> = ({startDate: startTime, onSuccess}) => {
 
     const finish = (event: any) => {
         const axios = require('axios');
-        
+
         const url = getWorkoutUrl();
         console.log("Finish workout. Sending http POST " + url);
         console.log(exerciseData);
-        
+
         const finishWorkoutInput = createFinishWorkoutInput();
         console.log(finishWorkoutInput)
-        
+
         axios.post(url, finishWorkoutInput)
         .then(function (response: any) {
             console.log(response);
             success(response.data);
             dispatch(listWorkouts());
+            onClearExerciseData();
         })
         .catch(function (error: any) {
             console.log(error);

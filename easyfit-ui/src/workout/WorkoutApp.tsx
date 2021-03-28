@@ -41,12 +41,17 @@ const WorkoutApp: React.FC<Props> = () => {
     const startWorkout = () => {
         setWorkoutStartDate(new Date());
         setTab(Tabs.WorkoutDay);
-        // fetchLastWorkout().then((response) => {
-        //     setLastWorkout(response.data);
-        //     response.data.exercises.forEach((exercise) => console.log("Exercise: " + exercise.name));
-        // })
-    };
+        clearExerciseData();
+    }
 
+    const clearExerciseData = () => {
+        setExerciseData([]);
+    }
+
+    const backToWorkout = () => {
+        setTab(Tabs.WorkoutDay);
+    }
+    
     const openHistoryTab = () => {
         setTab(Tabs.History);
     }
@@ -56,6 +61,11 @@ const WorkoutApp: React.FC<Props> = () => {
         console.log("Saved workout:");
         console.log(savedWorkout);
         setTab(Tabs.Summary);
+    }
+
+    const onExercisesDataChange = (newExercisesData: any) => {
+        setExerciseData(newExercisesData);
+        console.log(newExercisesData);
     }
 
     return (
@@ -73,6 +83,7 @@ const WorkoutApp: React.FC<Props> = () => {
             <div key={Math.random()}>
                 {tab == Tabs.History &&
                 <div>
+                    <button onClick={() => backToWorkout()}>Back</button>
                     <button onClick={() => startWorkout()}>Start Workout!</button>
                     <WorkoutHistory workoutData={workoutData}/>
                     <Button>I'm purple.</Button>
@@ -81,7 +92,11 @@ const WorkoutApp: React.FC<Props> = () => {
                 {tab == Tabs.WorkoutDay &&
                 <div>
                     <button onClick={() => openHistoryTab()}>History</button>
-                    <WorkoutDay startDate={workoutStartDate} onSuccess={onWorkoutSaveSuccess}>
+                    <WorkoutDay exerciseData={exerciseData}
+                                onExercisesDataChange={onExercisesDataChange}
+                                startDate={workoutStartDate}
+                                onSuccess={onWorkoutSaveSuccess}
+                                onClearExerciseData={clearExerciseData}>
                     </WorkoutDay>
                 </div>
                 }
