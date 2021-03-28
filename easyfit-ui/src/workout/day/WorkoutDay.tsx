@@ -6,12 +6,14 @@ import WorkoutInfo from "./info/WorkoutInfo";
 import AddExerciseSection from "./add/AddExerciseSection";
 import CurrentExercisesData from "./CurrentExercisesData";
 import {getWorkoutUrl} from "../../helpers/DomainUrlProvider";
+import { couldStartTrivia } from 'typescript';
 
 interface Props {
     exerciseData: ExerciseDataListElement[];
     startDate: Date;
     onSuccess: any;
     onExercisesDataChange: any;
+    onClearExerciseData: any;
 }
 
 export interface ExerciseData {
@@ -25,7 +27,7 @@ export interface ExerciseDataListElement extends ExerciseData {
     position: number;
 }
 
-const WorkoutDay: React.FC<Props> = ({startDate: startTime, onSuccess, onExercisesDataChange, exerciseData}) => {
+const WorkoutDay: React.FC<Props> = ({startDate: startTime, onSuccess, onExercisesDataChange, exerciseData, onClearExerciseData}) => {
 
     const dispatch = useDispatch();
 
@@ -113,19 +115,20 @@ const WorkoutDay: React.FC<Props> = ({startDate: startTime, onSuccess, onExercis
 
     const finish = (event: any) => {
         const axios = require('axios');
-        
+
         const url = getWorkoutUrl();
         console.log("Finish workout. Sending http POST " + url);
         console.log(exerciseData);
-        
+
         const finishWorkoutInput = createFinishWorkoutInput();
         console.log(finishWorkoutInput)
-        
+
         axios.post(url, finishWorkoutInput)
         .then(function (response: any) {
             console.log(response);
             success(response.data);
             dispatch(listWorkouts());
+            onClearExerciseData();
         })
         .catch(function (error: any) {
             console.log(error);
