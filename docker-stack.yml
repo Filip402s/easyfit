@@ -27,7 +27,7 @@ services:
         condition: on-failure
 
   easyfit-ui:
-    image: mazaq/easyfit-ui:0.2.1-SNAPSHOT
+    image: mazaq/easyfit-ui:0.2.2-SNAPSHOT
     build:
       context: easyfit-ui
       dockerfile: Dockerfile
