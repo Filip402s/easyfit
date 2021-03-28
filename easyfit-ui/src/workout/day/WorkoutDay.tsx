@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import { useDispatch } from "react-redux";
 import { listWorkouts } from "../../redux/actions/WorkoutAction";
-
 import 'react-dropdown/style.css';
 import WorkoutInfo from "./info/WorkoutInfo";
 import AddExerciseSection from "./add/AddExerciseSection";
