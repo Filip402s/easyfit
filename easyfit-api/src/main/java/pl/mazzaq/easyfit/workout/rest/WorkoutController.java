@@ -32,6 +32,7 @@ public class WorkoutController {
 
         return workout;
     }
+
     @GetMapping
     public List<WorkoutOutput> getWorkoutHistory() {
         log.info("getting workout history");
@@ -59,5 +60,12 @@ public class WorkoutController {
         boolean result = workoutService.delete(workoutId);
         log.info("Deleting workout result: {}", result);
         return result;
+    }
+
+    @DeleteMapping("/deleteAll")
+    public void deleteAllWorkouts() {
+        log.info("Deleting all wokrouts");
+        workoutService.deleteAll();
+        log.info("Deleted {} workouts");
     }
 }

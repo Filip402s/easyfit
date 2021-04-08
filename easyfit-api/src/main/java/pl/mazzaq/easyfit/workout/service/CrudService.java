@@ -11,4 +11,7 @@ public interface CrudService<INPUT, OUTPUT> {
     OUTPUT create(INPUT input);
 
     boolean delete(Integer workoutId);
+
+    void deleteAll();
+
 }
