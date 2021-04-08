@@ -1,10 +1,10 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import WorkoutDay, {ExerciseDataListElement} from "./day/WorkoutDay";
 import WorkoutHistory, {Workout} from "./history/WorkoutHistory";
 import WorkoutSummary from "./summary/WorkoutSummary";
-import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
-import { listWorkouts } from "../redux/actions/WorkoutAction";
+import {RootStateOrAny, useDispatch, useSelector} from "react-redux";
+import {deleteWorkoutsHistory, listWorkouts} from "../redux/actions/WorkoutAction";
 
 interface Props {
 }
@@ -51,7 +51,14 @@ const WorkoutApp: React.FC<Props> = () => {
     const backToWorkout = () => {
         setTab(Tabs.WorkoutDay);
     }
-    
+
+    const deleteHistory = () => {
+        if (window.confirm("Delete all workouts?")) {
+            dispatch(deleteWorkoutsHistory())
+            console.log("History deleted")
+        }
+    };
+
     const openHistoryTab = () => {
         setTab(Tabs.History);
     }
@@ -85,6 +92,11 @@ const WorkoutApp: React.FC<Props> = () => {
                 <div>
                     <button onClick={() => backToWorkout()}>Back</button>
                     <button onClick={() => startWorkout()}>Start Workout!</button>
+                    {workoutData.workouts.length===0 ?
+                        null
+                        :
+                        <button onClick={() => deleteHistory()}>Delete history</button>
+                    }
                     <WorkoutHistory workoutData={workoutData}/>
                     <Button>I'm purple.</Button>
                 </div>

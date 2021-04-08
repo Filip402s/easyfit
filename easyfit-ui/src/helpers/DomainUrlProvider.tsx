@@ -20,3 +20,7 @@ function replacePortWith(url: string, port: string) {
     return url.replace(regExp, port);
 }
 
+export function deleteAllWorkoutsUrl() {
+    return getAbsoluteDomainUrl() + '/workout/deleteAll';
+}
+
