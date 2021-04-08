@@ -65,8 +65,7 @@ public class WorkoutController {
     @DeleteMapping("/deleteAll")
     public void deleteAllWorkouts() {
         log.info("Deleting all wokrouts");
-        int size = workoutService.readAll().size();
         workoutService.deleteAll();
-        log.info("Deleted {} workouts", size);
+        log.info("Deleted {} workouts");
     }
 }
