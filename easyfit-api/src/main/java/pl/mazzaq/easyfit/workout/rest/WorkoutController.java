@@ -74,6 +74,6 @@ public class WorkoutController {
     public void deleteAllWorkouts() {
         log.info("Deleting all wokrouts");
         workoutService.deleteAll();
-        log.info("Deleted {} workouts");
+        log.info("Deleted workouts");
     }
 }
