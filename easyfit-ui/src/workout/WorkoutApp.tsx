@@ -5,8 +5,15 @@ import WorkoutHistory, {Workout} from "./history/WorkoutHistory";
 import WorkoutSummary from "./summary/WorkoutSummary";
 import {RootStateOrAny, useDispatch, useSelector} from "react-redux";
 import {deleteWorkoutsHistory, listWorkouts} from "../redux/actions/WorkoutAction";
+import axios from "axios";
+import {getTemplatesUrl} from "../helpers/DomainUrlProvider";
 
 interface Props {
+}
+
+interface Template {
+    id: number;
+    name: string;
 }
 
 enum Tabs {
@@ -29,6 +36,7 @@ const WorkoutApp: React.FC<Props> = () => {
     const [tab, setTab] = useState(Tabs.History);
     const [workoutStartDate, setWorkoutStartDate] = useState<Date>(new Date());
     const [lastWorkout, setLastWorkout] = useState<Workout>();
+    const [templates, setTemplates] = useState<Template []>([]);
 
     const dispatch = useDispatch();
     const workoutData = useSelector((state: RootStateOrAny) => state.workoutData);
@@ -36,6 +44,7 @@ const WorkoutApp: React.FC<Props> = () => {
     useEffect(() => {
         console.log("WorkoutApp component did mount");
         dispatch(listWorkouts());
+        getTemplates();
     }, [dispatch]);
 
     const startWorkout = () => {
@@ -43,6 +52,7 @@ const WorkoutApp: React.FC<Props> = () => {
         setTab(Tabs.WorkoutDay);
         clearExerciseData();
     }
+
 
     const clearExerciseData = () => {
         setExerciseData([]);
@@ -75,24 +85,30 @@ const WorkoutApp: React.FC<Props> = () => {
         console.log(newExercisesData);
     }
 
+
+    const getTemplates = () => {
+        const url = getTemplatesUrl();
+        axios.get(url)
+            .then(function (response: any) {
+                const templates: Template[] = response.data;
+                setTemplates(templates);
+            })
+            .catch(function (error: any) {
+                console.log(error);
+            })
+            .then(function () {
+                console.log("Finished getting templates.");
+            });
+    }
+
     return (
         <div>
-            <div>
-                {/*<button onClick={() => initialize()}>Get last workout</button>*/}
-                {/*<p> Last Workout </p>*/}
-                {/*{lastWorkout.exercises.map(exercise => {*/}
-                {/*    return (<div key={exercise.name+Math.random()}>*/}
-                {/*        Exercise name: {exercise.name}*/}
-                {/*    </div>);*/}
-                {/*})}*/}
-
-            </div>
             <div key={Math.random()}>
                 {tab == Tabs.History &&
                 <div>
                     <button onClick={() => backToWorkout()}>Back</button>
                     <button onClick={() => startWorkout()}>Start Workout!</button>
-                    {workoutData.workouts.length===0 ?
+                    {workoutData.workouts.length === 0 ?
                         null
                         :
                         <button onClick={() => deleteHistory()}>Delete history</button>
@@ -116,19 +132,13 @@ const WorkoutApp: React.FC<Props> = () => {
                 <div>
                     <button onClick={() => openHistoryTab()}>History</button>
                     <button onClick={() => startWorkout()}>Start Workout!</button>
+                    {templates.map((template: Template) => <button>{template.name}</button>)}
                     {lastWorkout && <WorkoutSummary workout={lastWorkout}>
                     </WorkoutSummary>}
                 </div>
                 }
             </div>
         </div>
-
-        // <DropdownButton id="dropdown-basic-button" title="Dropdown button">
-        //         <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-        //         <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-        //         <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-        //         </DropdownButton>
-        //         }
     )
 }
 
