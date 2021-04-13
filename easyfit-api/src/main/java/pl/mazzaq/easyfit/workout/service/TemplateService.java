@@ -36,9 +36,9 @@ public class TemplateService implements TemplateCrudService {
     }
 
     @Override
-    public TemplateOutput readById(Integer id) {
+    public Optional<TemplateOutput> readById(Integer id) {
         return templateRepository.findById(id)
-                .map(templateConverter::convert).get();
+                .map(templateConverter::convert);
     }
 
     @Override
