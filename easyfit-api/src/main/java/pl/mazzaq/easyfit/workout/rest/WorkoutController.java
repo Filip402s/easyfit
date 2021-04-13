@@ -2,6 +2,8 @@ package pl.mazzaq.easyfit.workout.rest;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.mazzaq.easyfit.workout.dto.WorkoutInput;
 import pl.mazzaq.easyfit.workout.dto.WorkoutOutput;
@@ -9,7 +11,10 @@ import pl.mazzaq.easyfit.workout.service.WorkoutCrudService;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @RequestMapping("/workout")
@@ -24,13 +29,16 @@ public class WorkoutController {
     }
 
     @GetMapping("/{id}")
-    public WorkoutOutput getWorkoutById(@PathVariable Integer id) {
+    public ResponseEntity<Object> getWorkoutById(@PathVariable Integer id) {
         log.info("getting workout with id {}", id);
 
-        WorkoutOutput workout = workoutService.readById(id);
+        Optional<WorkoutOutput> workout = workoutService.readById(id);
+        if (!workout.isPresent()) {
+            log.error("workout with id {} not found", id);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         log.info("successfully read workout: {}", workout.toString());
-
-        return workout;
+        return new ResponseEntity<>(workout.get(), HttpStatus.OK);
     }
 
     @GetMapping

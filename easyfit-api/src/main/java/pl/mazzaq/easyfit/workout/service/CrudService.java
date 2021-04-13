@@ -1,10 +1,11 @@
 package pl.mazzaq.easyfit.workout.service;
 
 import java.util.Collection;
+import java.util.Optional;
 
 public interface CrudService<INPUT, OUTPUT> {
 
-    OUTPUT readById(Integer id);
+    Optional<OUTPUT> readById(Integer id);
 
     Collection<OUTPUT> readAll();
 

@@ -10,7 +10,6 @@ import pl.mazzaq.easyfit.workout.dto.WorkoutOutput;
 import pl.mazzaq.easyfit.workout.repository.WorkoutRepository;
 import pl.mazzaq.easyfit.workout.repository.entities.ExerciseData;
 import pl.mazzaq.easyfit.workout.repository.entities.Workout;
-import pl.mazzaq.easyfit.workout.rest.WorkoutNotFoundException;
 
 import java.util.Comparator;
 import java.util.List;
@@ -31,10 +30,9 @@ public class WorkoutService implements WorkoutCrudService {
     }
 
     @Override
-    public WorkoutOutput readById(Integer id) {
+    public Optional<WorkoutOutput> readById(Integer id) {
         return workoutRepository.findById(id)
-                .map(workoutConverter::convert)
-                .orElseThrow(WorkoutNotFoundException::new);
+                .map(workoutConverter::convert);
     }
 
     @Override
