@@ -7,6 +7,7 @@ import {RootStateOrAny, useDispatch, useSelector} from "react-redux";
 import {deleteWorkoutsHistory, listWorkouts} from "../redux/actions/WorkoutAction";
 import axios from "axios";
 import {getTemplatesUrl} from "../helpers/DomainUrlProvider";
+import {listTemplates} from "../redux/actions/TemplateAction";
 
 interface Props {
 }
@@ -36,17 +37,18 @@ const WorkoutApp: React.FC<Props> = () => {
     const [tab, setTab] = useState(Tabs.History);
     const [workoutStartDate, setWorkoutStartDate] = useState<Date>(new Date());
     const [lastWorkout, setLastWorkout] = useState<Workout>();
-    const [templates, setTemplates] = useState<Template []>([]);
+    // const [templates, setTemplates] = useState<Template []>([]);
 
     const dispatch = useDispatch();
     const workoutData = useSelector((state: RootStateOrAny) => state.workoutData);
+    const {templates} = useSelector((state: RootStateOrAny) => state.templates);
 
     useEffect(() => {
         console.log("WorkoutApp component did mount");
         dispatch(listWorkouts());
-        getTemplates();
+        dispatch(listTemplates());
+        // console.log(templates.templates)
     }, [dispatch]);
-
     const startWorkout = () => {
         setWorkoutStartDate(new Date());
         setTab(Tabs.WorkoutDay);
@@ -86,20 +88,20 @@ const WorkoutApp: React.FC<Props> = () => {
     }
 
 
-    const getTemplates = () => {
-        const url = getTemplatesUrl();
-        axios.get(url)
-            .then(function (response: any) {
-                const templates: Template[] = response.data;
-                setTemplates(templates);
-            })
-            .catch(function (error: any) {
-                console.log(error);
-            })
-            .then(function () {
-                console.log("Finished getting templates.");
-            });
-    }
+    // const getTemplates = () => {
+    //     const url = getTemplatesUrl();
+    //     axios.get(url)
+    //         .then(function (response: any) {
+    //             const templates: Template[] = response.data;
+    //             setTemplates(templates);
+    //         })
+    //         .catch(function (error: any) {
+    //             console.log(error);
+    //         })
+    //         .then(function () {
+    //             console.log("Finished getting templates.");
+    //         });
+    // }
 
     return (
         <div>
@@ -113,6 +115,8 @@ const WorkoutApp: React.FC<Props> = () => {
                         :
                         <button onClick={() => deleteHistory()}>Delete history</button>
                     }
+                    {templates.map((template: Template) => <button>Start {template.name}</button>)}
+
                     <WorkoutHistory workoutData={workoutData}/>
                     <Button>I'm purple.</Button>
                 </div>
@@ -132,7 +136,6 @@ const WorkoutApp: React.FC<Props> = () => {
                 <div>
                     <button onClick={() => openHistoryTab()}>History</button>
                     <button onClick={() => startWorkout()}>Start Workout!</button>
-                    {templates.map((template: Template) => <button>{template.name}</button>)}
                     {lastWorkout && <WorkoutSummary workout={lastWorkout}>
                     </WorkoutSummary>}
                 </div>

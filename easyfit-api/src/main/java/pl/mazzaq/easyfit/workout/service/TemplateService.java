@@ -8,7 +8,6 @@ import pl.mazzaq.easyfit.workout.dto.TemplateInput;
 import pl.mazzaq.easyfit.workout.dto.TemplateOutput;
 import pl.mazzaq.easyfit.workout.repository.TemplateRepository;
 import pl.mazzaq.easyfit.workout.repository.entities.Template;
-import pl.mazzaq.easyfit.workout.rest.WorkoutNotFoundException;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -30,9 +29,9 @@ public class TemplateService implements TemplateCrudService {
         this.templateRepository = templateRepository;
         this.templateConverter = templateConverter;
         templates = new ArrayList<>();
-        templates.add(new Template(1, "Take a shower"));
-        templates.add(new Template(2, "Drink water"));
-        templates.add(new Template(3, "Eat fruits"));
+        templates.add(new Template(1, "Diet"));
+        templates.add(new Template(2, "Health"));
+        templates.add(new Template(3, "Workout"));
     }
 
     @Override

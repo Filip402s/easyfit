@@ -2,7 +2,6 @@ package pl.mazzaq.easyfit.workout.dto;
 
 import org.springframework.stereotype.Component;
 import pl.mazzaq.easyfit.workout.repository.entities.Template;
-import pl.mazzaq.easyfit.workout.repository.entities.Workout;
 
 @Component
 public class TemplateConverter {
