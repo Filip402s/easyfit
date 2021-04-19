@@ -1,4 +1,4 @@
-package pl.mazzaq.easyfit.workout.repository.entities;
+package pl.mazzaq.easyfit.template.repository.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

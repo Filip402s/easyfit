@@ -1,12 +1,12 @@
-package pl.mazzaq.easyfit.workout.rest;
+package pl.mazzaq.easyfit.template;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pl.mazzaq.easyfit.workout.dto.TemplateOutput;
-import pl.mazzaq.easyfit.workout.service.TemplateService;
+import pl.mazzaq.easyfit.template.service.TemplateService;
+import pl.mazzaq.easyfit.template.dto.TemplateOutput;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -1,12 +1,12 @@
-package pl.mazzaq.easyfit.workout;
+package pl.mazzaq.easyfit;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class WorkoutApplication {
+public class EasyfitApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(WorkoutApplication.class, args);
+		SpringApplication.run(EasyfitApplication.class, args);
 	}
 }

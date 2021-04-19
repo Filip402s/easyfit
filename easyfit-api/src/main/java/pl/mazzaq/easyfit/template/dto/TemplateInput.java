@@ -1,4 +1,4 @@
-package pl.mazzaq.easyfit.workout.dto;
+package pl.mazzaq.easyfit.template.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

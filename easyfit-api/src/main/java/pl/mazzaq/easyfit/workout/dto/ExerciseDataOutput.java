@@ -15,6 +15,4 @@ public class ExerciseDataOutput {
     String weight;
     Integer reps;
     Integer position;
-
-
 }

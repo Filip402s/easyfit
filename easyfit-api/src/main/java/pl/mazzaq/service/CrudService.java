@@ -1,4 +1,4 @@
-package pl.mazzaq.easyfit.workout.service;
+package pl.mazzaq.service;
 
 import java.util.Collection;
 import java.util.Optional;

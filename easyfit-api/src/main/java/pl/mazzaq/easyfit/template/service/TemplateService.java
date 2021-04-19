@@ -1,13 +1,13 @@
-package pl.mazzaq.easyfit.workout.service;
+package pl.mazzaq.easyfit.template.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.mazzaq.easyfit.workout.dto.TemplateConverter;
-import pl.mazzaq.easyfit.workout.dto.TemplateInput;
-import pl.mazzaq.easyfit.workout.dto.TemplateOutput;
-import pl.mazzaq.easyfit.workout.repository.TemplateRepository;
-import pl.mazzaq.easyfit.workout.repository.entities.Template;
+import pl.mazzaq.easyfit.template.dto.TemplateConverter;
+import pl.mazzaq.easyfit.template.dto.TemplateInput;
+import pl.mazzaq.easyfit.template.dto.TemplateOutput;
+import pl.mazzaq.easyfit.template.repository.TemplateRepository;
+import pl.mazzaq.easyfit.template.repository.entities.Template;
 
 import java.util.ArrayList;
 import java.util.Collection;
