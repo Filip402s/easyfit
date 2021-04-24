@@ -5,20 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.validation.constraints.NotNull;
-
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
 @Data
-public class TemplateInput {
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
+public class TemplateButton {
 
-    @NotNull
+    private Integer id;
     private String name;
 
-
-
-
 }
-
-

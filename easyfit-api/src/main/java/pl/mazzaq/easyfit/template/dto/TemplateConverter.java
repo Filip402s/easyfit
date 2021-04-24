@@ -6,13 +6,23 @@ import pl.mazzaq.easyfit.template.repository.entities.Template;
 @Component
 public class TemplateConverter {
 
-    public TemplateOutput convert(Template template) {
-        return of(template);
+    public static TemplateButton convertToButtons(Template template) {
+        if (template != null) {
+            TemplateButton templateButton = new TemplateButton();
+            templateButton.setId(template.getId());
+            templateButton.setName(template.getName());
+            return templateButton;
+        }
+        return null;
     }
 
-    private static TemplateOutput of(Template template) {
-        return new TemplateOutput(
-                template.getId(),
-                template.getName());
+    public TemplateOutput convert(Template template) {
+        if (template != null) {
+            TemplateOutput templateOutput = new TemplateOutput();
+            templateOutput.setId(template.getId());
+            templateOutput.setName(template.getName());
+        }
+        return null;
     }
+
 }

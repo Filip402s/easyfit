@@ -4,16 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import pl.mazzaq.easyfit.template.repository.entities.enums.InputType;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 @Entity
-public class Template {
+public class Field {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,12 +21,8 @@ public class Template {
 
     private String name;
 
-    private boolean isStartTime;
+    @Enumerated(EnumType.STRING)
+    private InputType type;
 
-    @OneToMany(mappedBy = "field", cascade = CascadeType.ALL)
-    private List<FieldData> fields;
-
-    public Template(String name) {
-        this.name = name;
-    }
+    private Integer position;
 }

@@ -5,16 +5,10 @@ import WorkoutHistory, {Workout} from "./history/WorkoutHistory";
 import WorkoutSummary from "./summary/WorkoutSummary";
 import {RootStateOrAny, useDispatch, useSelector} from "react-redux";
 import {deleteWorkoutsHistory, listWorkouts} from "../redux/actions/WorkoutAction";
-import axios from "axios";
-import {getTemplatesUrl} from "../helpers/DomainUrlProvider";
 import {listTemplates} from "../redux/actions/TemplateAction";
+import Templates from "./summary/Templates";
 
 interface Props {
-}
-
-interface Template {
-    id: number;
-    name: string;
 }
 
 enum Tabs {
@@ -29,7 +23,7 @@ const Button = styled.button`
   border-radius: 3px;
   border: none;
   color: white;
-`
+`;
 
 const WorkoutApp: React.FC<Props> = () => {
 
@@ -37,7 +31,6 @@ const WorkoutApp: React.FC<Props> = () => {
     const [tab, setTab] = useState(Tabs.History);
     const [workoutStartDate, setWorkoutStartDate] = useState<Date>(new Date());
     const [lastWorkout, setLastWorkout] = useState<Workout>();
-    // const [templates, setTemplates] = useState<Template []>([]);
 
     const dispatch = useDispatch();
     const workoutData = useSelector((state: RootStateOrAny) => state.workoutData);
@@ -47,61 +40,44 @@ const WorkoutApp: React.FC<Props> = () => {
         console.log("WorkoutApp component did mount");
         dispatch(listWorkouts());
         dispatch(listTemplates());
-        // console.log(templates.templates)
     }, [dispatch]);
     const startWorkout = () => {
         setWorkoutStartDate(new Date());
         setTab(Tabs.WorkoutDay);
         clearExerciseData();
-    }
+    };
 
 
     const clearExerciseData = () => {
         setExerciseData([]);
-    }
+    };
 
     const backToWorkout = () => {
         setTab(Tabs.WorkoutDay);
-    }
+    };
 
     const deleteHistory = () => {
         if (window.confirm("Delete all workouts?")) {
-            dispatch(deleteWorkoutsHistory())
+            dispatch(deleteWorkoutsHistory());
             console.log("History deleted")
         }
     };
 
     const openHistoryTab = () => {
         setTab(Tabs.History);
-    }
+    };
 
     const onWorkoutSaveSuccess = (savedWorkout: any) => {
         setLastWorkout(savedWorkout);
         console.log("Saved workout:");
         console.log(savedWorkout);
         setTab(Tabs.Summary);
-    }
+    };
 
     const onExercisesDataChange = (newExercisesData: any) => {
         setExerciseData(newExercisesData);
         console.log(newExercisesData);
-    }
-
-
-    // const getTemplates = () => {
-    //     const url = getTemplatesUrl();
-    //     axios.get(url)
-    //         .then(function (response: any) {
-    //             const templates: Template[] = response.data;
-    //             setTemplates(templates);
-    //         })
-    //         .catch(function (error: any) {
-    //             console.log(error);
-    //         })
-    //         .then(function () {
-    //             console.log("Finished getting templates.");
-    //         });
-    // }
+    };
 
     return (
         <div>
@@ -115,7 +91,7 @@ const WorkoutApp: React.FC<Props> = () => {
                         :
                         <button onClick={() => deleteHistory()}>Delete history</button>
                     }
-                    {templates.map((template: Template) => <button>Start {template.name}</button>)}
+                    <Templates templates={templates}/>
 
                     <WorkoutHistory workoutData={workoutData}/>
                     <Button>I'm purple.</Button>
@@ -143,6 +119,6 @@ const WorkoutApp: React.FC<Props> = () => {
             </div>
         </div>
     )
-}
+};
 
 export default WorkoutApp;
